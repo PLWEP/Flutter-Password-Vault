@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pasword_vault/detail_password_page.dart';
+import 'package:pasword_vault/new_password_page.dart';
 import 'package:pasword_vault/widget/custom_detail_password_box.dart';
 import 'package:pasword_vault/widget/custom_detail_username_box.dart';
 import 'package:pasword_vault/widget/custom_heading1_text.dart';
@@ -15,8 +16,16 @@ class KategoriPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("List Password"),
       ),
-      floatingActionButton:
-          FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const NewPasswordPage();
+              }),
+            );
+          }),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(

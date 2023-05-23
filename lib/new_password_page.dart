@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pasword_vault/widget/custom_elevated_button.dart';
+import 'package:pasword_vault/widget/custom_text_input.dart';
 
 class NewPasswordPage extends StatefulWidget {
   const NewPasswordPage({super.key});
@@ -29,63 +31,34 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
         title: Text("Buat Password"),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Judul'),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter Judul',
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomTextInput(
+                title: "Judul",
+                hint: "Enter judul",
+                controller: _judulController,
               ),
-              controller: _judulController,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text('Username'),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter Username',
+              CustomTextInput(
+                title: "Username",
+                hint: "Enter username",
+                controller: _judulController,
               ),
-              controller: _usernameController,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text('Password'),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter password',
+              CustomTextInput(
+                title: "Password",
+                hint: "Enter password",
+                controller: _judulController,
               ),
-              controller: _passwordController,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text('Confirm Password'),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter confirm password',
+              CustomTextInput(
+                title: "ConfirmPassword",
+                hint: "Enter confirm password",
+                controller: _judulController,
               ),
-              controller: _confirmPasswordController,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                fixedSize: MaterialStateProperty.all(
-                  Size(double.maxFinite, 50),
-                ),
-              ),
-              onPressed: () {},
-              child: Text("Simpan"),
-            ),
-          ],
+              CustomElevatedButton(title: "Simpan", onPressed: () {}),
+            ],
+          ),
         ),
       ),
     );
