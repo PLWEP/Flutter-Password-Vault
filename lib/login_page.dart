@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pasword_vault/home_page.dart';
+import 'package:pasword_vault/widget/custom_elevated_button.dart';
+import 'package:pasword_vault/widget/custom_text_input.dart';
+import 'package:pasword_vault/widget/custom_title_text.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,35 +28,24 @@ class _LoginPageState extends State<LoginPage> {
         child: Container(
           margin: EdgeInsets.all(10),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                child: Text("Password Vault"),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text('Confirm Password'),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter password',
-                ),
+              CustomTitleText(title: "Password Vault"),
+              CustomTextInput(
+                title: "Password",
+                hint: "Enter Password",
                 controller: _passwordController,
               ),
-              SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(
-                    Size(double.maxFinite, 50),
-                  ),
-                ),
-                onPressed: () {},
-                child: Text("Login"),
-              ),
+              CustomElevatedButton(
+                  title: "Login",
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const HomePage()),
+                      ModalRoute.withName('/'),
+                    );
+                  }),
             ],
           ),
         ),
