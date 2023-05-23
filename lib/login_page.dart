@@ -39,11 +39,10 @@ class _LoginPageState extends State<LoginPage> {
               CustomElevatedButton(
                   title: "Login",
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute<void>(
                           builder: (BuildContext context) => const HomePage()),
-                      ModalRoute.withName('/'),
                     );
                   }),
             ],

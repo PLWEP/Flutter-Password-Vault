@@ -55,12 +55,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 CustomElevatedButton(
                     title: "Register",
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute<void>(
                             builder: (BuildContext context) =>
                                 const LoginPage()),
-                        ModalRoute.withName('/'),
                       );
                     })
               ],
