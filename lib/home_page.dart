@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasword_vault/kategori_page.dart';
 import 'package:pasword_vault/widget/custom_category_box.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,12 +60,28 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               CustomCategoryBox(
+                onpressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return const KategoriPage();
+                    }),
+                  );
+                },
                 title: "Server",
                 icon: Icons.folder,
               ),
               CustomCategoryBox(
                 title: "Banking",
                 icon: Icons.money,
+                onpressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return const KategoriPage();
+                    }),
+                  );
+                },
               ),
             ],
           ),
