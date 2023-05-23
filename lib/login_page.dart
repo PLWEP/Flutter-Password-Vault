@@ -12,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -26,11 +26,11 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
           child: Center(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomTitleText(title: "Password Vault"),
+              const CustomTitleText(title: "Password Vault"),
               CustomTextInput(
                 title: "Password",
                 hint: "Enter Password",

@@ -10,14 +10,15 @@ class NewPasswordPage extends StatefulWidget {
 }
 
 class _NewPasswordPageState extends State<NewPasswordPage> {
-  TextEditingController _judulController = TextEditingController();
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
-    _judulController.dispose();
+    _titleController.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -28,35 +29,35 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Buat Password"),
+        title: const Text("New Password"),
       ),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextInput(
-                title: "Judul",
-                hint: "Enter judul",
-                controller: _judulController,
+                title: "Title",
+                hint: "Enter title",
+                controller: _titleController,
               ),
               CustomTextInput(
                 title: "Username",
                 hint: "Enter username",
-                controller: _judulController,
+                controller: _titleController,
               ),
               CustomTextInput(
                 title: "Password",
                 hint: "Enter password",
-                controller: _judulController,
+                controller: _titleController,
               ),
               CustomTextInput(
                 title: "ConfirmPassword",
                 hint: "Enter confirm password",
-                controller: _judulController,
+                controller: _titleController,
               ),
-              CustomElevatedButton(title: "Simpan", onPressed: () {}),
+              CustomElevatedButton(title: "Save", onPressed: () {}),
             ],
           ),
         ),

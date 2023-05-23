@@ -8,10 +8,10 @@ class CustomTitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(bottom: 15),
+        margin: const EdgeInsets.only(bottom: 15),
         child: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 50,
             fontWeight: FontWeight.bold,
           ),

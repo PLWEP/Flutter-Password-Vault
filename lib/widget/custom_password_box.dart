@@ -15,14 +15,14 @@ class CustomPasswordBox extends StatelessWidget {
     return GestureDetector(
       onTap: onpressed,
       child: Container(
-        margin: EdgeInsets.only(bottom: 15),
-        padding: EdgeInsets.symmetric(
+        margin: const EdgeInsets.only(bottom: 15),
+        padding: const EdgeInsets.symmetric(
           horizontal: 10,
           vertical: 15,
         ),
         width: double.infinity,
         height: 75,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.black26,
         ),
         child: Column(
@@ -30,7 +30,7 @@ class CustomPasswordBox extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
               ),
@@ -39,7 +39,7 @@ class CustomPasswordBox extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: Text(
                 date,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
                 ),

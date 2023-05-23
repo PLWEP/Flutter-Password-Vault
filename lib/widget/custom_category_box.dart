@@ -15,22 +15,22 @@ class CustomCategoryBox extends StatelessWidget {
     return InkWell(
       onTap: onpressed,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        margin: EdgeInsets.only(bottom: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        margin: const EdgeInsets.only(bottom: 15),
         width: double.infinity,
         height: 75,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.black26,
         ),
         child: Row(
           children: [
             Icon(icon, size: 40),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
               ),

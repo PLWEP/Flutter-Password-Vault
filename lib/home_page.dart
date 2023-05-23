@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pasword_vault/kategori_page.dart';
+import 'package:pasword_vault/category_page.dart';
 import 'package:pasword_vault/widget/custom_category_box.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,11 +10,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController _kategoriController = TextEditingController();
+  final TextEditingController _categoryController = TextEditingController();
 
   @override
   void dispose() {
-    _kategoriController.dispose();
+    _categoryController.dispose();
     super.dispose();
   }
 
@@ -22,30 +22,30 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Kategori"),
+        title: const Text("Category"),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () => showDialog(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: const Text('Kategori Baru'),
+            title: const Text('New Category'),
             content: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Enter kategori',
+                hintText: 'Enter category',
               ),
-              controller: _kategoriController,
+              controller: _categoryController,
             ),
             actions: <Widget>[
               ElevatedButton(
                 style: ButtonStyle(
                   fixedSize: MaterialStateProperty.all(
-                    Size(double.maxFinite, 50),
+                    const Size(double.maxFinite, 50),
                   ),
                 ),
                 onPressed: () {},
-                child: Text("Tambahkan"),
+                child: const Text("Add"),
               ),
             ],
           ),
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 15,
             vertical: 10,
           ),
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return const KategoriPage(title: "Server");
+                      return const CategoryPage(title: "Server");
                     }),
                   );
                 },
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return const KategoriPage(
+                      return const CategoryPage(
                         title: "Banking",
                       );
                     }),

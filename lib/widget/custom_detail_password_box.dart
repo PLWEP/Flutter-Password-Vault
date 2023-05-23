@@ -9,27 +9,27 @@ class CustomDetailPasswordBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             width: double.infinity,
             height: 50,
             decoration: BoxDecoration(
               border: Border.all(),
             ),
-            margin: EdgeInsets.only(bottom: 15),
-            child: Row(
+            margin: const EdgeInsets.only(bottom: 15),
+            child: const Row(
               children: [
                 Expanded(
                     child: Text(

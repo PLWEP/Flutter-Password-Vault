@@ -8,7 +8,7 @@ class DetailPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return const SizedBox(
       height: 275,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

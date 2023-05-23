@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:pasword_vault/detail_password_page.dart';
 import 'package:pasword_vault/new_password_page.dart';
-import 'package:pasword_vault/widget/custom_detail_password_box.dart';
-import 'package:pasword_vault/widget/custom_detail_username_box.dart';
 import 'package:pasword_vault/widget/custom_heading1_text.dart';
 import 'package:pasword_vault/widget/custom_password_box.dart';
 
-class KategoriPage extends StatelessWidget {
+class CategoryPage extends StatelessWidget {
   final String title;
-  const KategoriPage({super.key, required this.title});
+  const CategoryPage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("List Password"),
+        title: const Text("List Password"),
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
           onPressed: () {
             Navigator.push(
               context,
@@ -28,7 +26,7 @@ class KategoriPage extends StatelessWidget {
           }),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.symmetric(
+          margin: const EdgeInsets.symmetric(
             horizontal: 15,
             vertical: 10,
           ),
@@ -43,18 +41,18 @@ class KategoriPage extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: const Text('Detail Password'),
-                      content: DetailPasswordPage(),
+                      content: const DetailPasswordPage(),
                       actions: <Widget>[
                         ElevatedButton(
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all(
-                              Size(double.maxFinite, 50),
+                              const Size(double.maxFinite, 50),
                             ),
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text("Tutup"),
+                          child: const Text("Close"),
                         ),
                       ],
                     ),
@@ -62,25 +60,25 @@ class KategoriPage extends StatelessWidget {
                 },
               ),
               CustomPasswordBox(
-                title: "Web Sekolah",
+                title: "School Website",
                 date: "5-5-2022",
                 onpressed: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: const Text('Detail Password'),
-                      content: DetailPasswordPage(),
+                      content: const DetailPasswordPage(),
                       actions: <Widget>[
                         ElevatedButton(
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all(
-                              Size(double.maxFinite, 50),
+                              const Size(double.maxFinite, 50),
                             ),
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text("Tutup"),
+                          child: const Text("Close"),
                         ),
                       ],
                     ),

@@ -14,13 +14,14 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController _fullnameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
-    _fullnameController.dispose();
+    _nameController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
@@ -32,15 +33,15 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SafeArea(
         child: Center(
           child: Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomTitleText(title: "Register"),
+                const CustomTitleText(title: "Register"),
                 CustomTextInput(
-                  title: "Fullname",
-                  hint: "Enter fullname",
-                  controller: _fullnameController,
+                  title: "Name",
+                  hint: "Enter name",
+                  controller: _nameController,
                 ),
                 CustomTextInput(
                   title: "Password",
