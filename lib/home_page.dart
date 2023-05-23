@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasword_vault/widget/custom_category_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -50,51 +51,23 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 5,
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 10,
+          ),
+          child: Column(
+            children: [
+              CustomCategoryBox(
+                title: "Server",
+                icon: Icons.folder,
               ),
-              padding: EdgeInsets.all(10),
-              width: double.infinity,
-              height: 75,
-              decoration: BoxDecoration(
-                color: Colors.black26,
+              CustomCategoryBox(
+                title: "Banking",
+                icon: Icons.money,
               ),
-              child: Row(
-                children: [
-                  Icon(Icons.folder),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text("Server"),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 15,
-              ),
-              padding: EdgeInsets.all(10),
-              width: double.infinity,
-              height: 75,
-              decoration: BoxDecoration(
-                color: Colors.black26,
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.monetization_on),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text("Banking"),
-                ],
-              ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
