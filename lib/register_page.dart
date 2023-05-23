@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pasword_vault/login_page.dart';
+import 'package:pasword_vault/widget/custom_elevated_button.dart';
+import 'package:pasword_vault/widget/custom_text_input.dart';
+import 'package:pasword_vault/widget/custom_title_text.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
@@ -24,57 +28,43 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-        child: Container(
-          margin: EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Fullname'),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your full name',
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomTitleText(title: "Register"),
+                CustomTextInput(
+                  title: "Fullname",
+                  hint: "Enter fullname",
+                  controller: _fullnameController,
                 ),
-                controller: _fullnameController,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text('Password'),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter password',
+                CustomTextInput(
+                  title: "Password",
+                  hint: "Enter password",
+                  controller: _passwordController,
                 ),
-                controller: _passwordController,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text('Confirm Password'),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter confirm password',
+                CustomTextInput(
+                  title: "Confirm Password",
+                  hint: "Enter confirm password",
+                  controller: _confirmPasswordController,
                 ),
-                controller: _confirmPasswordController,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(
-                    Size(double.maxFinite, 50),
-                  ),
-                ),
-                onPressed: () {},
-                child: Text("Register"),
-              ),
-            ],
+                CustomElevatedButton(
+                    title: "Register",
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                const LoginPage()),
+                        ModalRoute.withName('/'),
+                      );
+                    })
+              ],
+            ),
           ),
         ),
       ),

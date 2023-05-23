@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pasword_vault/new_password_page.dart';
+import 'package:pasword_vault/register_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,9 +11,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: NewPasswordPage(),
-      ),
+      home: RegisterPage(),
     );
   }
 }
