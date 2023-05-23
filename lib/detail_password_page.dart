@@ -1,56 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:pasword_vault/widget/custom_detail_password_box.dart';
+import 'package:pasword_vault/widget/custom_detail_username_box.dart';
+import 'package:pasword_vault/widget/custom_heading1_text.dart';
 
 class DetailPasswordPage extends StatelessWidget {
   const DetailPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Detail Password"),
-      ),
-      body: Column(
+    return Container(
+      height: 275,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("SSH Dev Server"),
-          Text("Username"),
-          Container(
-            padding: EdgeInsets.all(10),
-            width: double.infinity,
-            height: 50,
-            decoration: BoxDecoration(
-              border: Border.all(),
-            ),
-            child: Text("Username"),
+          CustomHeading1Text(title: "SSH"),
+          CustomDetailUsernameBox(
+            title: "Username",
+            data: "username",
           ),
-          Text("Password"),
-          Container(
-            padding: EdgeInsets.all(10),
-            width: double.infinity,
-            height: 50,
-            decoration: BoxDecoration(
-              border: Border.all(),
-            ),
-            child: Row(
-              children: [
-                Expanded(child: Text("password")),
-                Icon(Icons.copy),
-                SizedBox(
-                  width: 5,
-                ),
-                Icon(Icons.remove_red_eye),
-              ],
-            ),
-          ),
-          ElevatedButton(
-            style: ButtonStyle(
-              fixedSize: MaterialStateProperty.all(
-                Size(double.maxFinite, 50),
-              ),
-            ),
-            onPressed: () {},
-            child: Text("Tambahkan"),
-          ),
+          CustomDetailPasswordBox(
+            title: "Password",
+            data: "Password",
+          )
         ],
       ),
     );

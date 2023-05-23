@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return const KategoriPage();
+                      return const KategoriPage(title: "Server");
                     }),
                   );
                 },
@@ -78,7 +78,9 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return const KategoriPage();
+                      return const KategoriPage(
+                        title: "Banking",
+                      );
                     }),
                   );
                 },
