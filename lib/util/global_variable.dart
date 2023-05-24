@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-final String nullErrorMessage = 'Value Can\'t Be Empty';
-final String notSameErrorMessage = 'The value is not the same as the password';
+const String nullErrorMessage = 'Value Can\'t Be Empty';
+const String notSameErrorMessage = 'The value is not the same as the password';
 
-TextStyle titleStyle = TextStyle(
+TextStyle titleStyle = const TextStyle(
   fontSize: 50,
   fontWeight: FontWeight.bold,
 );
 
-TextStyle heading1Style = TextStyle(
+TextStyle heading1Style = const TextStyle(
   fontSize: 30,
   fontWeight: FontWeight.w400,
 );

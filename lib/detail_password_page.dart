@@ -18,11 +18,11 @@ class DetailPasswordPage extends StatelessWidget {
             title: "SSH",
             textStyle: heading1Style,
           ),
-          CustomDetailUsernameBox(
+          const CustomDetailUsernameBox(
             title: "Username",
             data: "username",
           ),
-          CustomDetailPasswordBox(
+          const CustomDetailPasswordBox(
             title: "Password",
             data: "Password",
           )
