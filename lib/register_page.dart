@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pasword_vault/login_page.dart';
+import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 import 'package:pasword_vault/widget/custom_title_text.dart';
@@ -24,10 +25,6 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _confirmPasswordStatus = true;
 
   String _confirmPasswordErrorMessage = '';
-
-  final String nullErrorMessage = 'Value Can\'t Be Empty';
-  final String notSameErrorMessage =
-      'The value is not the same as the password';
 
   void registerSubmit(String name, String password, String confirmPassword) {
     if (name.isEmpty) {
@@ -86,7 +83,10 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CustomTitleText(title: "Register"),
+                  CustomTitleText(
+                    title: "Register",
+                    textStyle: titleStyle,
+                  ),
                   CustomTextInput(
                     title: "Name",
                     hint: "Enter name",

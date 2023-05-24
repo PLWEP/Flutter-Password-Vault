@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pasword_vault/home_page.dart';
+import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 import 'package:pasword_vault/widget/custom_title_text.dart';
@@ -15,8 +16,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool _passwordStatus = true;
-
-  final String nullErrorMessage = 'Value Can\'t Be Empty';
 
   void loginSubmit(String password) {
     if (password.isEmpty) {
@@ -47,7 +46,10 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CustomTitleText(title: "Password Vault"),
+                CustomTitleText(
+                  title: "Password Vault",
+                  textStyle: titleStyle,
+                ),
                 CustomTextInput(
                   title: "Password",
                   hint: "Enter Password",

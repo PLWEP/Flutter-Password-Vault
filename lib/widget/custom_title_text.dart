@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pasword_vault/util/global_variable.dart';
 
 class CustomTitleText extends StatelessWidget {
   final String title;
-  const CustomTitleText({super.key, required this.title});
+  final TextStyle textStyle;
+  const CustomTitleText(
+      {super.key, required this.title, required this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +14,7 @@ class CustomTitleText extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 15),
         child: Text(
           title,
-          style: const TextStyle(
-            fontSize: 50,
-            fontWeight: FontWeight.bold,
-          ),
+          style: textStyle,
         ),
       ),
     );

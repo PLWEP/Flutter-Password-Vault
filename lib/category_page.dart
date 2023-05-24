@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pasword_vault/detail_password_page.dart';
 import 'package:pasword_vault/new_password_page.dart';
-import 'package:pasword_vault/widget/custom_heading1_text.dart';
+import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/widget/custom_password_box.dart';
+import 'package:pasword_vault/widget/custom_title_text.dart';
 
 class CategoryPage extends StatelessWidget {
   final String title;
@@ -32,7 +33,10 @@ class CategoryPage extends StatelessWidget {
           ),
           child: Column(
             children: [
-              CustomHeading1Text(title: title),
+              CustomTitleText(
+                title: title,
+                textStyle: heading1Style,
+              ),
               CustomPasswordBox(
                 title: "SSH",
                 date: "5-5-2022",

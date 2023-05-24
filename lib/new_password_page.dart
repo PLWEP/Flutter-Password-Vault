@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 
@@ -22,10 +23,6 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
   bool _confirmPasswordStatus = true;
 
   String _confirmPasswordErrorMessage = '';
-
-  final String nullErrorMessage = 'Value Can\'t Be Empty';
-  final String notSameErrorMessage =
-      'The value is not the same as the password';
 
   void saveSubmit(
       String title, String username, String password, String confirmPassword) {
