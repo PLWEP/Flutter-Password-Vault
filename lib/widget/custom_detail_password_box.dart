@@ -43,7 +43,7 @@ class _CustomDetailPasswordBoxState extends State<CustomDetailPasswordBox> {
                 Expanded(
                     child: Text(
                   passwordVisibility ? "*****" : "password",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
                   ),
@@ -51,12 +51,12 @@ class _CustomDetailPasswordBoxState extends State<CustomDetailPasswordBox> {
                 CustomIconButton(
                   onPressed: () async {
                     await Clipboard.setData(
-                      ClipboardData(text: "password"),
+                      const ClipboardData(text: "password"),
                     );
                   },
-                  icon: Icon(Icons.copy),
+                  icon: const Icon(Icons.copy),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 CustomIconButton(
                   onPressed: () {
                     setState(() {

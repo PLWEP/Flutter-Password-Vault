@@ -11,7 +11,7 @@ class CustomIconButton extends StatelessWidget {
     return IconButton(
       padding: EdgeInsets.zero,
       splashRadius: 20,
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxHeight: 24,
         maxWidth: 24,
       ),
