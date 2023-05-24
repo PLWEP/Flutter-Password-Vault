@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pasword_vault/login_page.dart';
 import 'package:pasword_vault/util/global_variable.dart';
+import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 import 'package:pasword_vault/widget/custom_title_text.dart';
@@ -72,6 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,54 +82,61 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Container(
             margin: const EdgeInsets.all(10),
             child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTitleText(
-                    title: "Register",
-                    textStyle: titleStyle,
-                  ),
-                  CustomTextInput(
-                    title: "Name",
-                    hint: "Enter name",
-                    controller: _nameController,
-                    validate: _nameStatus,
-                    errorMessage: nullErrorMessage,
-                  ),
-                  CustomTextInput(
-                    title: "Password",
-                    hint: "Enter password",
-                    controller: _passwordController,
-                    validate: _passwordStatus,
-                    errorMessage: nullErrorMessage,
-                  ),
-                  CustomTextInput(
-                    title: "Confirm Password",
-                    hint: "Enter confirm password",
-                    controller: _confirmPasswordController,
-                    validate: _confirmPasswordStatus,
-                    errorMessage: _confirmPasswordErrorMessage,
-                  ),
-                  CustomElevatedButton(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomTitleText(
                       title: "Register",
-                      onPressed: () {
-                        registerSubmit(
-                          _nameController.text,
-                          _passwordController.text,
-                          _confirmPasswordController.text,
-                        );
-                        if (_nameStatus &&
-                            _passwordStatus &&
-                            _confirmPasswordStatus) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    const LoginPage()),
+                      textStyle: titleStyle,
+                    ),
+                    CustomTextInput(
+                      title: "Name",
+                      hint: "Enter name",
+                      validator: (value) =>
+                          value!.isEmpty ? nullErrorMessage : null,
+                      onChanged: (value) => context.
+                          .read(registerNameProvider.notifier)
+                          .update((state) => value),
+                      validate: _nameStatus,
+                      errorMessage: nullErrorMessage,
+                    ),
+                    CustomTextInput(
+                      title: "Password",
+                      hint: "Enter password",
+                      controller: _passwordController,
+                      validate: _passwordStatus,
+                      errorMessage: nullErrorMessage,
+                    ),
+                    CustomTextInput(
+                      title: "Confirm Password",
+                      hint: "Enter confirm password",
+                      controller: _confirmPasswordController,
+                      validate: _confirmPasswordStatus,
+                      errorMessage: _confirmPasswordErrorMessage,
+                    ),
+                    CustomElevatedButton(
+                        title: "Register",
+                        onPressed: () {
+                          registerSubmit(
+                            _nameController.text,
+                            _passwordController.text,
+                            _confirmPasswordController.text,
                           );
-                        }
-                      })
-                ],
+                          if (_nameStatus &&
+                              _passwordStatus &&
+                              _confirmPasswordStatus) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      const LoginPage()),
+                            );
+                          }
+                        })
+                  ],
+                ),
               ),
             ),
           ),

@@ -5,14 +5,16 @@ class CustomTextInput extends StatelessWidget {
   final String hint;
   final bool validate;
   final String errorMessage;
-  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final Function(String)? onChanged;
   const CustomTextInput({
     super.key,
     required this.title,
     required this.hint,
-    required this.controller,
     required this.validate,
     required this.errorMessage,
+    required this.validator,
+    this.onChanged,
   });
 
   @override
@@ -30,13 +32,14 @@ class CustomTextInput extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          TextField(
+          TextFormField(
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               errorText: validate ? null : errorMessage,
               hintText: hint,
             ),
-            controller: controller,
+            validator: validator,
+            onChanged: onChanged,
           ),
         ],
       ),
