@@ -5,77 +5,16 @@ import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 import 'package:pasword_vault/widget/custom_title_text.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({
-    super.key,
-  });
-
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-
-  bool _nameStatus = true;
-  bool _passwordStatus = true;
-  bool _confirmPasswordStatus = true;
-
-  String _confirmPasswordErrorMessage = '';
-
-  void registerSubmit(String name, String password, String confirmPassword) {
-    if (name.isEmpty) {
-      setState(() {
-        _nameStatus = false;
-      });
-    } else {
-      setState(() {
-        _nameStatus = true;
-      });
-    }
-    if (password.isEmpty) {
-      setState(() {
-        _passwordStatus = false;
-      });
-    } else {
-      setState(() {
-        _passwordStatus = true;
-      });
-    }
-    if (confirmPassword.isEmpty) {
-      setState(() {
-        _confirmPasswordStatus = false;
-        _confirmPasswordErrorMessage = nullErrorMessage;
-      });
-    } else {
-      if (password != confirmPassword) {
-        setState(() {
-          _confirmPasswordStatus = false;
-          _confirmPasswordErrorMessage = notSameErrorMessage;
-        });
-      } else {
-        setState(() {
-          _confirmPasswordStatus = true;
-        });
-      }
-    }
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    super.dispose();
-  }
+class RegisterPage extends ConsumerWidget {
+  RegisterPage({super.key});
 
   final _formKey = GlobalKey<FormState>();
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final password = ref.watch(registerPasswordProvider);
+    final confirmPassword = ref.watch(registerConfirmPasswordProvider);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -96,45 +35,48 @@ class _RegisterPageState extends State<RegisterPage> {
                       hint: "Enter name",
                       validator: (value) =>
                           value!.isEmpty ? nullErrorMessage : null,
-                      onChanged: (value) => context.
+                      onChanged: (value) => ref
                           .read(registerNameProvider.notifier)
                           .update((state) => value),
-                      validate: _nameStatus,
-                      errorMessage: nullErrorMessage,
                     ),
                     CustomTextInput(
                       title: "Password",
                       hint: "Enter password",
-                      controller: _passwordController,
-                      validate: _passwordStatus,
-                      errorMessage: nullErrorMessage,
+                      validator: (value) =>
+                          value!.isEmpty ? nullErrorMessage : null,
+                      onChanged: (value) => ref
+                          .read(registerPasswordProvider.notifier)
+                          .update((state) => value),
                     ),
                     CustomTextInput(
                       title: "Confirm Password",
                       hint: "Enter confirm password",
-                      controller: _confirmPasswordController,
-                      validate: _confirmPasswordStatus,
-                      errorMessage: _confirmPasswordErrorMessage,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return nullErrorMessage;
+                        } else if (password != confirmPassword) {
+                          return notSameErrorMessage;
+                        } else {
+                          return null;
+                        }
+                      },
+                      onChanged: (value) => ref
+                          .read(registerConfirmPasswordProvider.notifier)
+                          .update((state) => value),
                     ),
                     CustomElevatedButton(
-                        title: "Register",
-                        onPressed: () {
-                          registerSubmit(
-                            _nameController.text,
-                            _passwordController.text,
-                            _confirmPasswordController.text,
+                      title: "Register",
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => LoginPage(),
+                            ),
                           );
-                          if (_nameStatus &&
-                              _passwordStatus &&
-                              _confirmPasswordStatus) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute<void>(
-                                  builder: (BuildContext context) =>
-                                      const LoginPage()),
-                            );
-                          }
-                        })
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),

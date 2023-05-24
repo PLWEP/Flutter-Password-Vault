@@ -3,16 +3,12 @@ import 'package:flutter/material.dart';
 class CustomTextInput extends StatelessWidget {
   final String title;
   final String hint;
-  final bool validate;
-  final String errorMessage;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
   const CustomTextInput({
     super.key,
     required this.title,
     required this.hint,
-    required this.validate,
-    required this.errorMessage,
     required this.validator,
     this.onChanged,
   });
@@ -35,7 +31,6 @@ class CustomTextInput extends StatelessWidget {
           TextFormField(
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              errorText: validate ? null : errorMessage,
               hintText: hint,
             ),
             validator: validator,
