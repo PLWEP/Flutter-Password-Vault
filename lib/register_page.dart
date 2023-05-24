@@ -19,6 +19,54 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
+  bool _nameStatus = true;
+  bool _passwordStatus = true;
+  bool _confirmPasswordStatus = true;
+
+  String _confirmPasswordErrorMessage = '';
+
+  final String nullErrorMessage = 'Value Can\'t Be Empty';
+  final String notSameErrorMessage =
+      'The value is not the same as the password';
+
+  void registerSubmit(String name, String password, String confirmPassword) {
+    if (name.isEmpty) {
+      setState(() {
+        _nameStatus = false;
+      });
+    } else {
+      setState(() {
+        _nameStatus = true;
+      });
+    }
+    if (password.isEmpty) {
+      setState(() {
+        _passwordStatus = false;
+      });
+    } else {
+      setState(() {
+        _passwordStatus = true;
+      });
+    }
+    if (confirmPassword.isEmpty) {
+      setState(() {
+        _confirmPasswordStatus = false;
+        _confirmPasswordErrorMessage = nullErrorMessage;
+      });
+    } else {
+      if (password != confirmPassword) {
+        setState(() {
+          _confirmPasswordStatus = false;
+          _confirmPasswordErrorMessage = notSameErrorMessage;
+        });
+      } else {
+        setState(() {
+          _confirmPasswordStatus = true;
+        });
+      }
+    }
+  }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -34,36 +82,53 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Center(
           child: Container(
             margin: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CustomTitleText(title: "Register"),
-                CustomTextInput(
-                  title: "Name",
-                  hint: "Enter name",
-                  controller: _nameController,
-                ),
-                CustomTextInput(
-                  title: "Password",
-                  hint: "Enter password",
-                  controller: _passwordController,
-                ),
-                CustomTextInput(
-                  title: "Confirm Password",
-                  hint: "Enter confirm password",
-                  controller: _confirmPasswordController,
-                ),
-                CustomElevatedButton(
-                    title: "Register",
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute<void>(
-                            builder: (BuildContext context) =>
-                                const LoginPage()),
-                      );
-                    })
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CustomTitleText(title: "Register"),
+                  CustomTextInput(
+                    title: "Name",
+                    hint: "Enter name",
+                    controller: _nameController,
+                    validate: _nameStatus,
+                    errorMessage: nullErrorMessage,
+                  ),
+                  CustomTextInput(
+                    title: "Password",
+                    hint: "Enter password",
+                    controller: _passwordController,
+                    validate: _passwordStatus,
+                    errorMessage: nullErrorMessage,
+                  ),
+                  CustomTextInput(
+                    title: "Confirm Password",
+                    hint: "Enter confirm password",
+                    controller: _confirmPasswordController,
+                    validate: _confirmPasswordStatus,
+                    errorMessage: _confirmPasswordErrorMessage,
+                  ),
+                  CustomElevatedButton(
+                      title: "Register",
+                      onPressed: () {
+                        registerSubmit(
+                          _nameController.text,
+                          _passwordController.text,
+                          _confirmPasswordController.text,
+                        );
+                        if (_nameStatus &&
+                            _passwordStatus &&
+                            _confirmPasswordStatus) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute<void>(
+                                builder: (BuildContext context) =>
+                                    const LoginPage()),
+                          );
+                        }
+                      })
+                ],
+              ),
             ),
           ),
         ),

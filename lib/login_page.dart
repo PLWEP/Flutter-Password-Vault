@@ -14,6 +14,22 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
+  bool _passwordStatus = true;
+
+  final String nullErrorMessage = 'Value Can\'t Be Empty';
+
+  void loginSubmit(String password) {
+    if (password.isEmpty) {
+      setState(() {
+        _passwordStatus = false;
+      });
+    } else {
+      setState(() {
+        _passwordStatus = true;
+      });
+    }
+  }
+
   @override
   void dispose() {
     _passwordController.dispose();
@@ -27,25 +43,34 @@ class _LoginPageState extends State<LoginPage> {
           child: Center(
         child: Container(
           margin: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CustomTitleText(title: "Password Vault"),
-              CustomTextInput(
-                title: "Password",
-                hint: "Enter Password",
-                controller: _passwordController,
-              ),
-              CustomElevatedButton(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CustomTitleText(title: "Password Vault"),
+                CustomTextInput(
+                  title: "Password",
+                  hint: "Enter Password",
+                  controller: _passwordController,
+                  validate: _passwordStatus,
+                  errorMessage: nullErrorMessage,
+                ),
+                CustomElevatedButton(
                   title: "Login",
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const HomePage()),
-                    );
-                  }),
-            ],
+                    loginSubmit(_passwordController.text);
+                    if (_passwordStatus) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                const HomePage()),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       )),
