@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pasword_vault/widget/custom_icon_button.dart';
 
-class CustomDetailPasswordBox extends StatelessWidget {
+class CustomDetailPasswordBox extends StatefulWidget {
   final String title;
   final String data;
   const CustomDetailPasswordBox(
       {super.key, required this.title, required this.data});
 
+  @override
+  State<CustomDetailPasswordBox> createState() =>
+      _CustomDetailPasswordBoxState();
+}
+
+class _CustomDetailPasswordBoxState extends State<CustomDetailPasswordBox> {
+  bool passwordVisibility = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +23,7 @@ class CustomDetailPasswordBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title,
+            widget.title,
             style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
@@ -29,19 +38,35 @@ class CustomDetailPasswordBox extends StatelessWidget {
               border: Border.all(),
             ),
             margin: const EdgeInsets.only(bottom: 15),
-            child: const Row(
+            child: Row(
               children: [
                 Expanded(
                     child: Text(
-                  "password",
+                  passwordVisibility ? "*****" : "password",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
                   ),
                 )),
-                Icon(Icons.copy),
+                CustomIconButton(
+                  onPressed: () async {
+                    await Clipboard.setData(
+                      ClipboardData(text: "password"),
+                    );
+                  },
+                  icon: Icon(Icons.copy),
+                ),
                 SizedBox(width: 5),
-                Icon(Icons.remove_red_eye),
+                CustomIconButton(
+                  onPressed: () {
+                    setState(() {
+                      passwordVisibility = !passwordVisibility;
+                    });
+                  },
+                  icon: Icon(passwordVisibility
+                      ? Icons.not_interested
+                      : Icons.remove_red_eye),
+                ),
               ],
             ),
           ),
