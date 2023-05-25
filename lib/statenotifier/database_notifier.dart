@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/model/category.dart';
 import 'package:pasword_vault/util/database_helper.dart';
@@ -8,17 +7,17 @@ class DatabaseProvider extends StateNotifier<DatabaseState> {
   final DatabaseHelper databaseHelper;
 
   DatabaseProvider({required this.databaseHelper})
-      : super(DatabaseState.loading()) {
+      : super(const DatabaseState.loading()) {
     _getCategory();
   }
 
   void _getCategory() async {
-    state = DatabaseState.loading();
+    state = const DatabaseState.loading();
     final category = await databaseHelper.getCategory();
     if (category.isNotEmpty) {
       state = DatabaseState.hasData(category);
     } else {
-      state = DatabaseState.noData('No Category Found');
+      state = const DatabaseState.noData('No Category Found');
     }
   }
 

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:pasword_vault/model/category.dart';
 import 'package:sqflite/sqflite.dart';
 
