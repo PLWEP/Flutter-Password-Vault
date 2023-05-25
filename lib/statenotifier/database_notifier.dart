@@ -21,9 +21,9 @@ class DatabaseProvider extends StateNotifier<DatabaseState> {
     }
   }
 
-  Future<void> addCategory(CategoryModel category) async {
+  Future<void> addCategory(String categoryTitle) async {
     try {
-      await databaseHelper.insertCategory(category);
+      await databaseHelper.insertCategory(categoryTitle);
       _getCategory();
     } catch (e) {
       state = DatabaseState.error('Error Found: $e');

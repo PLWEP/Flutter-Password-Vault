@@ -17,12 +17,15 @@ final usernameProvider = StateProvider.autoDispose<String>((ref) => '');
 final passwordProvider = StateProvider.autoDispose<String>((ref) => '');
 final confirmPasswordProvider = StateProvider.autoDispose<String>((ref) => '');
 
+// home
+final categoryProvider = StateProvider<String>((ref) => '');
+
 // Database
-final databaseHelperProvider = Provider<DatabaseHelper>((ref) {
+final databaseHelperProvider = Provider.autoDispose<DatabaseHelper>((ref) {
   return DatabaseHelper();
 });
 final databaseProvider =
-    StateNotifierProvider<DatabaseProvider, DatabaseState>((ref) {
+    StateNotifierProvider.autoDispose<DatabaseProvider, DatabaseState>((ref) {
   final databaseHelper = ref.watch(databaseHelperProvider);
   return DatabaseProvider(databaseHelper: databaseHelper);
 });

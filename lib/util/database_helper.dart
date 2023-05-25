@@ -44,15 +44,17 @@ class DatabaseHelper {
   final String _databaseCategoryName = 'Category';
   final String _databasePasswordName = 'Password';
 
-  Future<void> insertCategory(CategoryModel category) async {
+  Future<void> insertCategory(String categoryTitle) async {
     final db = await database;
-    await db!.insert(_databaseCategoryName, category.toMap());
+    await db!.insert(
+      _databaseCategoryName,
+      CategoryModel(title: categoryTitle).toMap(),
+    );
   }
 
   Future<List<CategoryModel>> getCategory() async {
     final db = await database;
     List<Map<String, dynamic>> results = await db!.query(_databaseCategoryName);
-
     return results.map((res) => CategoryModel.fromMap(res)).toList();
   }
 }

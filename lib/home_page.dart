@@ -1,68 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pasword_vault/add_category_page.dart';
 import 'package:pasword_vault/category_page.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/util/result_state.dart';
 import 'package:pasword_vault/widget/custom_category_box.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final result = ref.watch(databaseProvider);
 
-class _HomePageState extends State<HomePage> {
-  final TextEditingController _categoryController = TextEditingController();
-
-  @override
-  void dispose() {
-    _categoryController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Category"),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => showDialog(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('New Category'),
-            content: TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter category',
-              ),
-              controller: _categoryController,
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(
-                    const Size(double.maxFinite, 50),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Text("Add"),
-              ),
-            ],
-          ),
-        ),
-      ),
+      floatingActionButton: AddCategoryPage(),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(
             horizontal: 15,
             vertical: 10,
           ),
-          child: Consumer(
-            builder: (context, ref, child) {
-              final result = ref.watch(databaseProvider);
+          child: Builder(
+            builder: (context) {
               if (result.resultState == ResultState.loading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (result.resultState == ResultState.hasData) {
@@ -89,7 +52,9 @@ class _HomePageState extends State<HomePage> {
               } else if (result.resultState == ResultState.noData) {
                 return Center(child: Text(result.message!));
               } else {
-                return const Material(child: Text(''));
+                return const Material(
+                  child: Text('Error found Try Again Later'),
+                );
               }
             },
           ),
