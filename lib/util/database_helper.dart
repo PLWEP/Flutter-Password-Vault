@@ -1,4 +1,5 @@
 import 'package:pasword_vault/model/category.dart';
+import 'package:pasword_vault/model/password.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -36,7 +37,9 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY,
         title TEXT,
         username TEXT,
-        password TEXT
+        password TEXT,
+        category TEXT,
+        date TEXT
       );
     ''');
   }
@@ -56,5 +59,20 @@ class DatabaseHelper {
     final db = await database;
     List<Map<String, dynamic>> results = await db!.query(_databaseCategoryName);
     return results.map((res) => CategoryModel.fromMap(res)).toList();
+  }
+
+  Future<void> insertPassword(PasswordModel passModel) async {
+    final db = await database;
+    await db!.insert(
+      _databasePasswordName,
+      passModel.toMap(),
+    );
+  }
+
+  Future<List<PasswordModel>> getPasword(String category) async {
+    final db = await database;
+    List<Map<String, dynamic>> results = await db!.query(_databasePasswordName,
+        where: "category = ?", whereArgs: [category]);
+    return results.map((res) => PasswordModel.fromMap(res)).toList();
   }
 }

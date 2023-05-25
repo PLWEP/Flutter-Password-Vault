@@ -8,7 +8,7 @@ class AddCategoryPage extends ConsumerWidget {
 
   void onSubmit(WidgetRef ref) {
     final submit = ref.read(categoryProvider);
-    ref.read(databaseProvider.notifier).addCategory(submit);
+    ref.read(databaseCategoryProvider.notifier).addCategory(submit);
   }
 
   final _formKey = GlobalKey<FormState>();

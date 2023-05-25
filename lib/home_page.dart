@@ -11,7 +11,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final result = ref.watch(databaseProvider);
+    final result = ref.watch(databaseCategoryProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -35,6 +35,9 @@ class HomePage extends ConsumerWidget {
                     var category = result.categories![index];
                     return CustomCategoryBox(
                       onpressed: () {
+                        ref
+                            .watch(categoryPageProvider.notifier)
+                            .update((state) => category.title);
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) {

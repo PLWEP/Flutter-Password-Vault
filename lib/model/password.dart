@@ -3,11 +3,15 @@ class PasswordModel {
   String title;
   String username;
   String password;
+  String date;
+  String category;
   PasswordModel({
     required this.id,
     required this.title,
     required this.username,
     required this.password,
+    required this.date,
+    required this.category,
   });
 
   PasswordModel copyWith({
@@ -15,12 +19,16 @@ class PasswordModel {
     String? title,
     String? username,
     String? password,
+    String? date,
+    String? category,
   }) {
     return PasswordModel(
       id: id ?? this.id,
       title: title ?? this.title,
       username: username ?? this.username,
       password: password ?? this.password,
+      date: date ?? this.date,
+      category: category ?? this.category,
     );
   }
 
@@ -30,6 +38,8 @@ class PasswordModel {
       'title': title,
       'username': username,
       'password': password,
+      'date': date,
+      'category': category,
     };
   }
 
@@ -39,12 +49,14 @@ class PasswordModel {
       title: map['title'] as String,
       username: map['username'] as String,
       password: map['password'] as String,
+      date: map['date'] as String,
+      category: map['category'] as String,
     );
   }
 
   @override
   String toString() {
-    return 'Password(id: $id, title: $title, username: $username, password: $password)';
+    return 'PasswordModel(id: $id, title: $title, username: $username, password: $password, date: $date, category: $category)';
   }
 
   @override
@@ -54,11 +66,18 @@ class PasswordModel {
     return other.id == id &&
         other.title == title &&
         other.username == username &&
-        other.password == password;
+        other.password == password &&
+        other.date == date &&
+        other.category == category;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ title.hashCode ^ username.hashCode ^ password.hashCode;
+    return id.hashCode ^
+        title.hashCode ^
+        username.hashCode ^
+        password.hashCode ^
+        date.hashCode ^
+        category.hashCode;
   }
 }
