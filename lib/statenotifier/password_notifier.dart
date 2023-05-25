@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pasword_vault/model/category.dart';
 import 'package:pasword_vault/model/password.dart';
 import 'package:pasword_vault/util/database_helper.dart';
 import 'package:pasword_vault/util/result_state.dart';
