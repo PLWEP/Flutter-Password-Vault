@@ -19,7 +19,7 @@ class PasswordNotifier extends StateNotifier<PasswordState> {
     if (password.isNotEmpty) {
       state = PasswordState.hasData(password);
     } else {
-      state = const PasswordState.noData('No Category Found');
+      state = const PasswordState.noData('No Password Found');
     }
   }
 
