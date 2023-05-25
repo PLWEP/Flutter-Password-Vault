@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:pasword_vault/model/category.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -25,20 +27,33 @@ class DatabaseHelper {
 
   void _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE Category (
+      CREATE TABLE $_databaseCategoryName (
         id INTEGER PRIMARY KEY,
         title TEXT
       );
     ''');
     await db.execute('''
-      CREATE TABLE  Password (
+      CREATE TABLE  $_databasePasswordName (
         id INTEGER PRIMARY KEY,
         title TEXT,
-        overview TEXT,
-        posterPath TEXT,
-        category TEXT,
-        type TEXT
+        username TEXT,
+        password TEXT,
       );
     ''');
+  }
+
+  final String _databaseCategoryName = 'Category';
+  final String _databasePasswordName = 'Category';
+
+  Future<void> insertCategory(CategoryModel category) async {
+    final db = await database;
+    await db!.insert(_databaseCategoryName, category.toMap());
+  }
+
+  Future<List<CategoryModel>> getCategory() async {
+    final db = await database;
+    List<Map<String, dynamic>> results = await db!.query(_databaseCategoryName);
+
+    return results.map((res) => CategoryModel.fromMap(res)).toList();
   }
 }

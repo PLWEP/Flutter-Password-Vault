@@ -1,16 +1,16 @@
-class Category {
+class CategoryModel {
   int id;
   String title;
-  Category({
+  CategoryModel({
     required this.id,
     required this.title,
   });
 
-  Category copyWith({
+  CategoryModel copyWith({
     int? id,
     String? title,
   }) {
-    return Category(
+    return CategoryModel(
       id: id ?? this.id,
       title: title ?? this.title,
     );
@@ -23,8 +23,8 @@ class Category {
     };
   }
 
-  factory Category.fromMap(Map<String, dynamic> map) {
-    return Category(
+  factory CategoryModel.fromMap(Map<String, dynamic> map) {
+    return CategoryModel(
       id: map['id'] as int,
       title: map['title'] as String,
     );
@@ -34,7 +34,7 @@ class Category {
   String toString() => 'Category(id: $id, title: $title)';
 
   @override
-  bool operator ==(covariant Category other) {
+  bool operator ==(covariant CategoryModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id && other.title == title;
