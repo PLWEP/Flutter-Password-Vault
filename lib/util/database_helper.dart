@@ -37,13 +37,13 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY,
         title TEXT,
         username TEXT,
-        password TEXT,
+        password TEXT
       );
     ''');
   }
 
   final String _databaseCategoryName = 'Category';
-  final String _databasePasswordName = 'Category';
+  final String _databasePasswordName = 'Password';
 
   Future<void> insertCategory(CategoryModel category) async {
     final db = await database;
