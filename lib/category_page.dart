@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pasword_vault/detail_password_page.dart';
 import 'package:pasword_vault/new_password_page.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
@@ -43,39 +44,59 @@ class CategoryPage extends ConsumerWidget {
                 title: title,
                 textStyle: heading1Style,
               ),
-              Builder(
-                builder: (context) {
-                  if (result.resultState == ResultState.loading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (result.resultState == ResultState.hasData) {
-                    return ListView.builder(
-                      itemCount: result.passwords!.length,
-                      itemBuilder: (context, index) {
-                        var password = result.passwords![index];
-                        return CustomPasswordBox(
-                          onpressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return CategoryPage(title: password.title);
-                              }),
-                            );
-                          },
-                          title: password.title,
-                          date: password.date,
-                        );
-                      },
-                    );
-                  } else if (result.resultState == ResultState.error) {
-                    return Center(child: Text(result.message!));
-                  } else if (result.resultState == ResultState.noData) {
-                    return Center(child: Text(result.message!));
-                  } else {
-                    return const Material(
-                      child: Text('Error found Try Again Later'),
-                    );
-                  }
-                },
+              Expanded(
+                child: Builder(
+                  builder: (context) {
+                    if (result.resultState == ResultState.loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (result.resultState == ResultState.hasData) {
+                      return ListView.builder(
+                        itemCount: result.passwords!.length,
+                        itemBuilder: (context, index) {
+                          var password = result.passwords![index];
+                          return CustomPasswordBox(
+                            onpressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Detail Password'),
+                                  content: DetailPasswordPage(
+                                    title: password.title,
+                                    password: password.password,
+                                    username: password.username,
+                                  ),
+                                  actions: <Widget>[
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(
+                                          const Size(double.maxFinite, 50),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("Close"),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            title: password.title,
+                            date: password.date,
+                          );
+                        },
+                      );
+                    } else if (result.resultState == ResultState.error) {
+                      return Center(child: Text(result.message!));
+                    } else if (result.resultState == ResultState.noData) {
+                      return Center(child: Text(result.message!));
+                    } else {
+                      return const Material(
+                        child: Text('Error found Try Again Later'),
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           ),

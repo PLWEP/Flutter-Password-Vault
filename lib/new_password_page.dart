@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:pasword_vault/model/password.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
@@ -7,6 +10,22 @@ import 'package:pasword_vault/widget/custom_text_input.dart';
 
 class NewPasswordPage extends ConsumerWidget {
   NewPasswordPage({super.key});
+  void onSubmit(WidgetRef ref) {
+    final title = ref.read(titleProvider);
+    final username = ref.read(usernameProvider);
+    final password = ref.read(passwordProvider);
+    final date = DateFormat('EEEE MMMM y').format(DateTime.now());
+    final category = ref.read(categoryProvider);
+    ref.read(databasePasswordProvider.notifier).addPassword(
+          PasswordModel(
+            title: title,
+            username: username,
+            password: password,
+            date: date,
+            category: category,
+          ),
+        );
+  }
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -73,6 +92,7 @@ class NewPasswordPage extends ConsumerWidget {
                     title: "Save",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        onSubmit(ref);
                         Navigator.pop(context);
                       }
                     },

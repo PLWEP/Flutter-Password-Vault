@@ -4,11 +4,12 @@ class CustomCategoryBox extends StatelessWidget {
   final String title;
   final IconData icon;
   final Function() onpressed;
-  const CustomCategoryBox(
-      {super.key,
-      required this.title,
-      required this.icon,
-      required this.onpressed});
+  const CustomCategoryBox({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.onpressed,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,14 @@ import 'package:pasword_vault/widget/custom_detail_username_box.dart';
 import 'package:pasword_vault/widget/custom_title_text.dart';
 
 class DetailPasswordPage extends StatelessWidget {
-  const DetailPasswordPage({super.key});
+  final String title;
+  final String username;
+  final String password;
+  const DetailPasswordPage(
+      {super.key,
+      required this.title,
+      required this.username,
+      required this.password});
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +22,16 @@ class DetailPasswordPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomTitleText(
-            title: "SSH",
+            title: title,
             textStyle: heading1Style,
           ),
-          const CustomDetailUsernameBox(
+          CustomDetailUsernameBox(
             title: "Username",
-            data: "username",
+            data: username,
           ),
-          const CustomDetailPasswordBox(
+          CustomDetailPasswordBox(
             title: "Password",
-            data: "Password",
+            data: password,
           )
         ],
       ),

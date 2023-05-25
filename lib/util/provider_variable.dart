@@ -13,16 +13,19 @@ final registerConfirmPasswordProvider =
 final loginPasswordProvider = StateProvider.autoDispose<String>((ref) => '');
 
 // new password
-final titleProvider = StateProvider.autoDispose<String>((ref) => '');
-final usernameProvider = StateProvider.autoDispose<String>((ref) => '');
-final passwordProvider = StateProvider.autoDispose<String>((ref) => '');
-final confirmPasswordProvider = StateProvider.autoDispose<String>((ref) => '');
+final titleProvider = StateProvider<String>((ref) => '');
+final usernameProvider = StateProvider<String>((ref) => '');
+final passwordProvider = StateProvider<String>((ref) => '');
+final confirmPasswordProvider = StateProvider<String>((ref) => '');
 
 // home
 final categoryProvider = StateProvider<String>((ref) => '');
 
 // category
 final categoryPageProvider = StateProvider.autoDispose<String>((ref) => '');
+
+// detail password
+final passwordVisibilityProvider = StateProvider<bool>((ref) => true);
 
 // Database
 final databaseHelperProvider = Provider.autoDispose<DatabaseHelper>((ref) {

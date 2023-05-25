@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_icon_button.dart';
 
-class CustomDetailPasswordBox extends StatefulWidget {
+class CustomDetailPasswordBox extends ConsumerWidget {
   final String title;
   final String data;
-  const CustomDetailPasswordBox(
-      {super.key, required this.title, required this.data});
+  const CustomDetailPasswordBox({
+    super.key,
+    required this.title,
+    required this.data,
+  });
 
   @override
-  State<CustomDetailPasswordBox> createState() =>
-      _CustomDetailPasswordBoxState();
-}
-
-class _CustomDetailPasswordBoxState extends State<CustomDetailPasswordBox> {
-  bool passwordVisibility = false;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final passwordVisibility = ref.watch(passwordVisibilityProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.title,
+            title,
             style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
@@ -42,7 +41,7 @@ class _CustomDetailPasswordBoxState extends State<CustomDetailPasswordBox> {
               children: [
                 Expanded(
                     child: Text(
-                  passwordVisibility ? "*****" : "password",
+                  passwordVisibility ? data : "*****",
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -51,21 +50,19 @@ class _CustomDetailPasswordBoxState extends State<CustomDetailPasswordBox> {
                 CustomIconButton(
                   onPressed: () async {
                     await Clipboard.setData(
-                      const ClipboardData(text: "password"),
+                      ClipboardData(text: data),
                     );
                   },
                   icon: const Icon(Icons.copy),
                 ),
                 const SizedBox(width: 5),
                 CustomIconButton(
-                  onPressed: () {
-                    setState(() {
-                      passwordVisibility = !passwordVisibility;
-                    });
-                  },
+                  onPressed: () => ref
+                      .read(passwordVisibilityProvider.notifier)
+                      .update((state) => !passwordVisibility),
                   icon: Icon(passwordVisibility
-                      ? Icons.not_interested
-                      : Icons.remove_red_eye),
+                      ? Icons.remove_red_eye
+                      : Icons.not_interested),
                 ),
               ],
             ),

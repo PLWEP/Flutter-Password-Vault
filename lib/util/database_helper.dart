@@ -71,8 +71,11 @@ class DatabaseHelper {
 
   Future<List<PasswordModel>> getPasword(String category) async {
     final db = await database;
-    List<Map<String, dynamic>> results = await db!.query(_databasePasswordName,
-        where: "category = ?", whereArgs: [category]);
+    List<Map<String, dynamic>> results = await db!.query(
+      _databasePasswordName,
+      // where: "category = ?",
+      // whereArgs: [category],
+    );
     return results.map((res) => PasswordModel.fromMap(res)).toList();
   }
 }
