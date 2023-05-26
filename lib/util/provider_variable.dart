@@ -28,7 +28,7 @@ final categoryPageProvider = StateProvider.autoDispose<String>((ref) => '');
 final passwordVisibilityProvider = StateProvider<bool>((ref) => true);
 
 // Database
-final databaseHelperProvider = Provider.autoDispose<DatabaseHelper>((ref) {
+final databaseHelperProvider = StateProvider.autoDispose<DatabaseHelper>((ref) {
   return DatabaseHelper();
 });
 final databaseCategoryProvider =

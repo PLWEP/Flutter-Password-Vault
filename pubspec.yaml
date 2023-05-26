@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.3.6
+  flutter_secure_storage: ^8.0.0
   intl: ^0.18.1
   sqflite: ^2.2.8+4
 
