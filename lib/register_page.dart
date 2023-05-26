@@ -11,6 +11,13 @@ class RegisterPage extends ConsumerWidget {
   RegisterPage({super.key});
 
   final _formKey = GlobalKey<FormState>();
+
+  void onSubmit(WidgetRef ref) {
+    final name = ref.read(registerNameProvider);
+    final password = ref.read(registerPasswordProvider);
+    ref.read(storageProvider.notifier).saveStorage(name, password);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final password = ref.watch(registerPasswordProvider);
@@ -66,8 +73,9 @@ class RegisterPage extends ConsumerWidget {
                     ),
                     CustomElevatedButton(
                       title: "Register",
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          onSubmit(ref);
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute<void>(

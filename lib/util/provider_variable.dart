@@ -1,11 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pasword_vault/statenotifier/category_notifier.dart';
 import 'package:pasword_vault/statenotifier/password_notifier.dart';
+import 'package:pasword_vault/statenotifier/storage_notifier.dart';
 import 'package:pasword_vault/util/database_helper.dart';
 
 // register
-final registerNameProvider = StateProvider.autoDispose<String>((ref) => '');
-final registerPasswordProvider = StateProvider.autoDispose<String>((ref) => '');
+final registerNameProvider = StateProvider<String>((ref) => '');
+final registerPasswordProvider = StateProvider<String>((ref) => '');
 final registerConfirmPasswordProvider =
     StateProvider.autoDispose<String>((ref) => '');
 
@@ -25,7 +27,17 @@ final categoryProvider = StateProvider<String>((ref) => '');
 final categoryPageProvider = StateProvider.autoDispose<String>((ref) => '');
 
 // detail password
-final passwordVisibilityProvider = StateProvider<bool>((ref) => true);
+final passwordVisibilityProvider =
+    StateProvider.autoDispose<bool>((ref) => false);
+
+// storage
+final storageHelperProvider =
+    StateProvider.autoDispose((ref) => const FlutterSecureStorage());
+final storageProvider =
+    StateNotifierProvider.autoDispose<StorageNotifier, StorageState>((ref) {
+  final storageHelper = ref.watch(storageHelperProvider);
+  return StorageNotifier(storageHelper: storageHelper);
+});
 
 // Database
 final databaseHelperProvider = StateProvider.autoDispose<DatabaseHelper>((ref) {

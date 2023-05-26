@@ -13,6 +13,8 @@ class LoginPage extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final result = ref.watch(storageProvider);
+    final loginPassword = ref.watch(loginPasswordProvider);
     return Scaffold(
       body: SafeArea(
           child: Center(
@@ -41,12 +43,35 @@ class LoginPage extends ConsumerWidget {
                     title: "Login",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => const HomePage(),
-                          ),
-                        );
+                        if (result.password!.compareTo(loginPassword) == 0) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) =>
+                                  const HomePage(),
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              content: const Text("Wrong Password"),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    fixedSize: MaterialStateProperty.all(
+                                      const Size(double.maxFinite, 50),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("Close"),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                       }
                     },
                   ),
