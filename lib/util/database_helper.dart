@@ -1,5 +1,5 @@
-import 'package:pasword_vault/model/category.dart';
-import 'package:pasword_vault/model/password.dart';
+import 'package:pasword_vault/model/category_model.dart';
+import 'package:pasword_vault/model/password_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {

@@ -2,15 +2,15 @@ import 'package:easy_encryption/easy_encryption.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:pasword_vault/model/password.dart';
+import 'package:pasword_vault/model/password_model.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 
-class NewPasswordPage extends ConsumerWidget {
+class AddPasswordPage extends ConsumerWidget {
   final String category;
-  NewPasswordPage({super.key, required this.category});
+  AddPasswordPage({super.key, required this.category});
   final EasyEncryption easyEncrypt = EasyEncryption();
   void onSubmit(WidgetRef ref) async {
     final title = ref.read(titleProvider);

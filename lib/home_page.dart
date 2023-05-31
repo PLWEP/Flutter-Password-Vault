@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/add_category_page.dart';
-import 'package:pasword_vault/category_page.dart';
+import 'package:pasword_vault/list_password_page.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/util/result_state.dart';
 import 'package:pasword_vault/widget/custom_category_box.dart';
@@ -41,7 +41,7 @@ class HomePage extends ConsumerWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) {
-                            return CategoryPage(title: category.title);
+                            return ListPasswordPage(title: category.title);
                           }),
                         );
                       },
