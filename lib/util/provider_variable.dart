@@ -34,9 +34,9 @@ final passwordVisibilityProvider =
 
 // storage
 final storageHelperProvider =
-    StateProvider.autoDispose((ref) => const FlutterSecureStorage());
+    StateProvider((ref) => const FlutterSecureStorage());
 final storageProvider =
-    StateNotifierProvider.autoDispose<StorageNotifier, StorageState>((ref) {
+    StateNotifierProvider<StorageNotifier, StorageState>((ref) {
   final storageHelper = ref.watch(storageHelperProvider);
   return StorageNotifier(storageHelper: storageHelper);
 });

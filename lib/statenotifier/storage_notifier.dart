@@ -25,6 +25,11 @@ class StorageNotifier extends StateNotifier<StorageState> {
     await storageHelper.write(key: 'name', value: name);
     await storageHelper.write(key: 'password', value: password);
   }
+
+  Future<String?> getPassword() async {
+    final password = await storageHelper.read(key: 'password');
+    return password;
+  }
 }
 
 class StorageState {
