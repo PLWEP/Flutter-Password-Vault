@@ -79,7 +79,8 @@ class RegisterPage extends ConsumerWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute<void>(
-                              builder: (BuildContext context) => LoginPage(),
+                              builder: (BuildContext context) =>
+                                  const LoginPage(),
                             ),
                           );
                         }

@@ -28,7 +28,9 @@ class CategoryPage extends ConsumerWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) {
-                return NewPasswordPage();
+                return NewPasswordPage(
+                  category: title,
+                );
               }),
             );
           }),

@@ -9,7 +9,8 @@ import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 
 class NewPasswordPage extends ConsumerWidget {
-  NewPasswordPage({super.key});
+  final String category;
+  NewPasswordPage({super.key, required this.category});
   final EasyEncryption easyEncrypt = EasyEncryption();
   void onSubmit(WidgetRef ref) async {
     final title = ref.read(titleProvider);
@@ -18,7 +19,6 @@ class NewPasswordPage extends ConsumerWidget {
     final encryptedPassword =
         await ref.read(encryptProvider.notifier).encryptMessage(password);
     final date = DateFormat('EEEE MMMM y').format(DateTime.now());
-    final category = ref.read(categoryProvider);
     ref.read(databasePasswordProvider.notifier).addPassword(
           PasswordModel(
             title: title,

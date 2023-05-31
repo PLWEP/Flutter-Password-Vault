@@ -27,7 +27,7 @@ class MainApp extends ConsumerWidget {
               ),
             );
           } else if (result.resultState == ResultState.hasData) {
-            return LoginPage();
+            return const LoginPage();
           } else if (result.resultState == ResultState.noData) {
             return RegisterPage();
           } else {
