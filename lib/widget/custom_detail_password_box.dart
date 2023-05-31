@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_icon_button.dart';
 
-class CustomDetailPasswordBox extends ConsumerWidget {
+class CustomDetailPasswordBox extends ConsumerStatefulWidget {
   final String title;
   final String data;
   const CustomDetailPasswordBox({
@@ -14,7 +14,28 @@ class CustomDetailPasswordBox extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CustomDetailPasswordState();
+}
+
+class _CustomDetailPasswordState
+    extends ConsumerState<CustomDetailPasswordBox> {
+  String decryptedData = '';
+  @override
+  void initState() {
+    ref
+        .read(encryptProvider.notifier)
+        .decryptMessage(widget.data)
+        .then((value) {
+      setState(() {
+        decryptedData = value;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final passwordVisibility = ref.watch(passwordVisibilityProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -22,7 +43,7 @@ class CustomDetailPasswordBox extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title,
+            widget.title,
             style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
@@ -41,7 +62,7 @@ class CustomDetailPasswordBox extends ConsumerWidget {
               children: [
                 Expanded(
                     child: Text(
-                  passwordVisibility ? data : "*****",
+                  passwordVisibility ? decryptedData : "*****",
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -50,7 +71,7 @@ class CustomDetailPasswordBox extends ConsumerWidget {
                 CustomIconButton(
                   onPressed: () async {
                     await Clipboard.setData(
-                      ClipboardData(text: data),
+                      ClipboardData(text: decryptedData),
                     );
                   },
                   icon: const Icon(Icons.copy),

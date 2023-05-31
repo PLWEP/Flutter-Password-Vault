@@ -1,6 +1,8 @@
+import 'package:easy_encryption/easy_encryption.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pasword_vault/statenotifier/category_notifier.dart';
+import 'package:pasword_vault/statenotifier/encrypt_notifier.dart';
 import 'package:pasword_vault/statenotifier/password_notifier.dart';
 import 'package:pasword_vault/statenotifier/storage_notifier.dart';
 import 'package:pasword_vault/util/database_helper.dart';
@@ -56,4 +58,13 @@ final databasePasswordProvider =
     databaseHelper: databaseHelper,
     category: categoryPage,
   );
+});
+
+// encrypt
+final easyEncryptionProvider = StateProvider.autoDispose<EasyEncryption>((ref) {
+  return EasyEncryption();
+});
+final encryptProvider = StateNotifierProvider.autoDispose((ref) {
+  final easyEncription = ref.watch(easyEncryptionProvider);
+  return EncryptNotifier(easyEncryption: easyEncription);
 });
