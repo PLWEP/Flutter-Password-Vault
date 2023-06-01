@@ -1,4 +1,3 @@
-import 'package:easy_encryption/easy_encryption.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -11,19 +10,19 @@ import 'package:pasword_vault/widget/custom_text_input.dart';
 class AddPasswordPage extends ConsumerWidget {
   final String category;
   AddPasswordPage({super.key, required this.category});
-  final EasyEncryption easyEncrypt = EasyEncryption();
-  void onSubmit(WidgetRef ref) async {
+  void onSubmit(WidgetRef ref) {
     final title = ref.read(titleProvider);
     final username = ref.read(usernameProvider);
     final password = ref.read(passwordProvider);
     final encryptedPassword =
-        await ref.read(encryptProvider.notifier).encryptMessage(password);
+        ref.read(encryptProvider.notifier).encryptMessage(password);
     final date = DateFormat('EEEE MMMM y').format(DateTime.now());
     ref.read(databasePasswordProvider.notifier).addPassword(
           PasswordModel(
             title: title,
             username: username,
-            password: encryptedPassword,
+            password: encryptedPassword.data,
+            byte: encryptedPassword.byte,
             date: date,
             category: category,
           ),

@@ -66,6 +66,7 @@ class ListPasswordPage extends ConsumerWidget {
                                     title: password.title,
                                     password: password.password,
                                     username: password.username,
+                                    byte: password.byte,
                                   ),
                                   actions: <Widget>[
                                     ElevatedButton(

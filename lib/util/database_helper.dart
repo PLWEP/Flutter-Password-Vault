@@ -38,6 +38,7 @@ class DatabaseHelper {
         title TEXT,
         username TEXT,
         password TEXT,
+        byte BLOB,
         category TEXT,
         date TEXT
       );

@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_icon_button.dart';
 
-class CustomDetailPasswordBox extends ConsumerStatefulWidget {
+class CustomDetailPasswordBox extends ConsumerWidget {
   final String title;
-  final String data;
+  final Uint8List data;
   const CustomDetailPasswordBox({
     super.key,
     required this.title,
@@ -14,28 +14,9 @@ class CustomDetailPasswordBox extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _CustomDetailPasswordState();
-}
-
-class _CustomDetailPasswordState
-    extends ConsumerState<CustomDetailPasswordBox> {
-  String decryptedData = '';
-  @override
-  void initState() {
-    ref
-        .read(encryptProvider.notifier)
-        .decryptMessage(widget.data)
-        .then((value) {
-      setState(() {
-        decryptedData = value;
-      });
-    });
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final decryptedData =
+        ref.watch(encryptProvider.notifier).decryptMessage(data);
     final passwordVisibility = ref.watch(passwordVisibilityProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -43,7 +24,7 @@ class _CustomDetailPasswordState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.title,
+            title,
             style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,

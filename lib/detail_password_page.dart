@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/widget/custom_detail_password_box.dart';
@@ -8,11 +10,13 @@ class DetailPasswordPage extends StatelessWidget {
   final String title;
   final String username;
   final String password;
+  final Uint8List byte;
   const DetailPasswordPage(
       {super.key,
       required this.title,
       required this.username,
-      required this.password});
+      required this.password,
+      required this.byte});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,7 @@ class DetailPasswordPage extends StatelessWidget {
           ),
           CustomDetailPasswordBox(
             title: "Password",
-            data: password,
+            data: byte,
           )
         ],
       ),
