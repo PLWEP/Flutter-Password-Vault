@@ -14,7 +14,7 @@ class PasswordNotifier extends StateNotifier<PasswordState> {
 
   void _getPassword() async {
     state = const PasswordState.loading();
-    final password = await databaseHelper.getPasword(category);
+    final password = await databaseHelper.getPassword(category);
     if (password.isNotEmpty) {
       state = PasswordState.hasData(password);
     } else {

@@ -13,7 +13,14 @@ final registerConfirmPasswordProvider =
     StateProvider.autoDispose<String>((ref) => '');
 
 // login
+final loginStatusProvider = StateProvider.autoDispose<bool>((ref) => false);
 final loginPasswordProvider = StateProvider.autoDispose<String>((ref) => '');
+final loginNameProvider = StateProvider.autoDispose<String>((ref) => '');
+final getAccountLoginProvider = FutureProvider((ref) {
+  final databaseHelper = ref.read(databaseHelperProvider);
+  final name = ref.read(loginNameProvider);
+  return databaseHelper.getAccount(name);
+});
 
 // new password
 final titleProvider = StateProvider<String>((ref) => '');
@@ -22,10 +29,11 @@ final passwordProvider = StateProvider<String>((ref) => '');
 final confirmPasswordProvider = StateProvider<String>((ref) => '');
 
 // home
-final categoryProvider = StateProvider<String>((ref) => '');
 
 // category
 final categoryPageProvider = StateProvider.autoDispose<String>((ref) => '');
+
+final categoryDumbProvider = StateProvider<String>((ref) => '');
 
 // detail password
 final passwordVisibilityProvider =
@@ -41,9 +49,10 @@ final storageProvider =
 });
 
 // Database
-final databaseHelperProvider = StateProvider.autoDispose<DatabaseHelper>((ref) {
+final databaseHelperProvider = StateProvider<DatabaseHelper>((ref) {
   return DatabaseHelper();
 });
+
 final databaseCategoryProvider =
     StateNotifierProvider.autoDispose<CategoryNotifier, CategoryState>((ref) {
   final databaseHelper = ref.watch(databaseHelperProvider);

@@ -1,36 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/home_page.dart';
+import 'package:pasword_vault/register_page.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 import 'package:pasword_vault/widget/custom_title_text.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({super.key});
+class LoginPage extends ConsumerWidget {
+  LoginPage({super.key});
 
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String passwordStorage = "";
 
   @override
-  void initState() {
-    ref.read(storageProvider.notifier).getPassword().then((value) {
-      setState(() {
-        passwordStorage = value!;
-      });
-    });
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final loginPassword = ref.watch(loginPasswordProvider);
+    final loginStatus = ref.watch(loginStatusProvider);
+    final result = ref.watch(getAccountLoginProvider);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -46,48 +33,116 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       title: "Password Vault",
                       textStyle: titleStyle,
                     ),
+                    Container(
+                      height: loginStatus ? 40 : 0,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade200,
+                        border: Border.all(
+                          color: Colors.red,
+                          width: loginStatus ? 3 : 0,
+                        ),
+                      ),
+                      child: const Center(
+                        child:
+                            Text("Something Wrong. Incorrect password / name."),
+                      ),
+                    ),
+                    CustomTextInput(
+                      title: "Name",
+                      hint: "Enter Name",
+                      obsecureText: false,
+                      validator: (value) =>
+                          value!.isEmpty ? nullErrorMessage : null,
+                      onChanged: (value) => ref
+                          .read(loginNameProvider.notifier)
+                          .update((state) => value),
+                    ),
                     CustomTextInput(
                       title: "Password",
                       hint: "Enter Password",
+                      obsecureText: true,
                       validator: (value) =>
                           value!.isEmpty ? nullErrorMessage : null,
                       onChanged: (value) => ref
                           .read(loginPasswordProvider.notifier)
                           .update((state) => value),
                     ),
+                    GestureDetector(
+                      onTap: () {
+                        _formKey.currentState!.reset();
+                        ref
+                            .read(loginStatusProvider.notifier)
+                            .update((state) => false);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => RegisterPage(),
+                            ));
+                      },
+                      child: Container(
+                        height: 20,
+                        margin: const EdgeInsets.only(bottom: 5),
+                        child: const Center(
+                          child: Text(
+                            "Need account? Click here",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     CustomElevatedButton(
                       title: "Login",
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          if (passwordStorage == loginPassword) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    const HomePage(),
-                              ),
-                            );
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                content: const Text("Wrong Password"),
-                                actions: <Widget>[
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                      fixedSize: MaterialStateProperty.all(
-                                        const Size(double.maxFinite, 50),
-                                      ),
+                          ref.watch(getAccountLoginProvider);
+
+                          result.when(
+                            data: (data) {
+                              if (data != '') {
+                                if (data == loginPassword) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const HomePage(),
                                     ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Close"),
-                                  ),
-                                ],
+                                  );
+                                } else {
+                                  _formKey.currentState!.reset();
+                                  ref
+                                      .read(loginStatusProvider.notifier)
+                                      .update((state) => true);
+                                }
+                              } else {
+                                _formKey.currentState!.reset();
+                                ref
+                                    .read(loginStatusProvider.notifier)
+                                    .update((state) => true);
+                              }
+                            },
+                            error: (error, stackTrace) {
+                              _formKey.currentState!.reset();
+                              ref
+                                  .read(loginStatusProvider.notifier)
+                                  .update((state) => true);
+                            },
+                            loading: () => showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  const AlertDialog(
+                                content: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: Center(
+                                      child: CircularProgressIndicator()),
+                                ),
                               ),
-                            );
-                          }
+                            ),
+                          );
                         }
                       },
                     ),

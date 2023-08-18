@@ -5,12 +5,14 @@ class CustomTextInput extends StatelessWidget {
   final String hint;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
+  final bool obsecureText;
   const CustomTextInput({
     super.key,
     required this.title,
     required this.hint,
     required this.validator,
     this.onChanged,
+    required this.obsecureText,
   });
 
   @override
@@ -33,6 +35,7 @@ class CustomTextInput extends StatelessWidget {
               border: const OutlineInputBorder(),
               hintText: hint,
             ),
+            obscureText: obsecureText,
             validator: validator,
             onChanged: onChanged,
           ),

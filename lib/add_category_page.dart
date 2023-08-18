@@ -7,8 +7,8 @@ class AddCategoryPage extends ConsumerWidget {
   AddCategoryPage({super.key});
 
   void onSubmit(WidgetRef ref) {
-    final submit = ref.read(categoryProvider);
-    ref.read(databaseCategoryProvider.notifier).addCategory(submit);
+    // final submit = ref.read(categoryDumbProvider);
+    // ref.read(databaseCategoryProvider.notifier).addCategory(submit);
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -30,7 +30,7 @@ class AddCategoryPage extends ConsumerWidget {
                 ),
                 validator: (value) => value!.isEmpty ? nullErrorMessage : null,
                 onChanged: (value) => ref
-                    .read(categoryProvider.notifier)
+                    .read(categoryDumbProvider.notifier)
                     .update((state) => value),
               ),
             ),

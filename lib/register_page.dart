@@ -40,6 +40,7 @@ class RegisterPage extends ConsumerWidget {
                     CustomTextInput(
                       title: "Name",
                       hint: "Enter name",
+                      obsecureText: false,
                       validator: (value) =>
                           value!.isEmpty ? nullErrorMessage : null,
                       onChanged: (value) => ref
@@ -49,6 +50,7 @@ class RegisterPage extends ConsumerWidget {
                     CustomTextInput(
                       title: "Password",
                       hint: "Enter password",
+                      obsecureText: true,
                       validator: (value) =>
                           value!.isEmpty ? nullErrorMessage : null,
                       onChanged: (value) => ref
@@ -58,6 +60,7 @@ class RegisterPage extends ConsumerWidget {
                     CustomTextInput(
                       title: "Confirm Password",
                       hint: "Enter confirm password",
+                      obsecureText: true,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return nullErrorMessage;
@@ -79,8 +82,7 @@ class RegisterPage extends ConsumerWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute<void>(
-                              builder: (BuildContext context) =>
-                                  const LoginPage(),
+                              builder: (BuildContext context) => LoginPage(),
                             ),
                           );
                         }

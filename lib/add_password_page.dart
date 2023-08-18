@@ -50,6 +50,7 @@ class AddPasswordPage extends ConsumerWidget {
                   CustomTextInput(
                     title: "Title",
                     hint: "Enter title",
+                    obsecureText: false,
                     validator: (value) =>
                         value!.isEmpty ? nullErrorMessage : null,
                     onChanged: (value) => ref
@@ -59,6 +60,7 @@ class AddPasswordPage extends ConsumerWidget {
                   CustomTextInput(
                     title: "Username",
                     hint: "Enter username",
+                    obsecureText: false,
                     validator: (value) =>
                         value!.isEmpty ? nullErrorMessage : null,
                     onChanged: (value) => ref
@@ -68,6 +70,7 @@ class AddPasswordPage extends ConsumerWidget {
                   CustomTextInput(
                     title: "Password",
                     hint: "Enter password",
+                    obsecureText: true,
                     validator: (value) =>
                         value!.isEmpty ? nullErrorMessage : null,
                     onChanged: (value) => ref
@@ -77,6 +80,7 @@ class AddPasswordPage extends ConsumerWidget {
                   CustomTextInput(
                     title: "ConfirmPassword",
                     hint: "Enter confirm password",
+                    obsecureText: true,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return nullErrorMessage;

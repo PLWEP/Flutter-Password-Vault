@@ -21,9 +21,9 @@ class CategoryNotifier extends StateNotifier<CategoryState> {
     }
   }
 
-  Future<void> addCategory(String categoryTitle) async {
+  Future<void> addCategory(CategoryModel categoryModel) async {
     try {
-      await databaseHelper.insertCategory(categoryTitle);
+      await databaseHelper.insertCategory(categoryModel);
       _getCategory();
     } catch (e) {
       state = CategoryState.error('Error Found: $e');
