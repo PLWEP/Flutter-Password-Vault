@@ -10,8 +10,6 @@ class StorageNotifier extends StateNotifier<String> {
   Future<StorageModel> getStorageData() async {
     final name = await storageHelper.read(key: 'name');
     final password = await storageHelper.read(key: 'password');
-    debugPrint(name);
-    debugPrint(password);
     if (name != null && password != null) {
       return StorageModel(name: name, password: password);
     } else {

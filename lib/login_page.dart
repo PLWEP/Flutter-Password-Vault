@@ -109,12 +109,13 @@ class LoginPage extends ConsumerWidget {
                                   ref
                                       .read(loginStatusProvider.notifier)
                                       .update((state) => false);
-                                  Navigator.pushReplacement(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute<void>(
                                       builder: (BuildContext context) =>
                                           const HomePage(),
                                     ),
+                                    (route) => false,
                                   );
                                 } else {
                                   _formKey.currentState!.reset();
