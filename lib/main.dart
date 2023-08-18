@@ -14,33 +14,5 @@ class MainApp extends ConsumerWidget {
     return MaterialApp(
       home: LoginPage(),
     );
-    // final result = ref.watch(storageProvider);
-    // return MaterialApp(
-    //   home: Builder(
-    //     builder: (context) {
-    //       if (result.resultState == ResultState.loading) {
-    //         return const Scaffold(
-    //           body: SafeArea(
-    //             child: Center(
-    //               child: CircularProgressIndicator(),
-    //             ),
-    //           ),
-    //         );
-    //       } else if (result.resultState == ResultState.hasData) {
-    //         return const LoginPage();
-    //       } else if (result.resultState == ResultState.noData) {
-    //         return RegisterPage();
-    //       } else {
-    //         return const Scaffold(
-    //           body: SafeArea(
-    //             child: Center(
-    //               child: Text('Error found Try Again Later'),
-    //             ),
-    //           ),
-    //         );
-    //       }
-    //     },
-    //   ),
-    // );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:pasword_vault/model/account_model.dart';
 import 'package:pasword_vault/model/category_model.dart';
 import 'package:pasword_vault/model/password_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -28,17 +27,9 @@ class DatabaseHelper {
 
   void _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE $_databaseAccountName (
-        id INTEGER PRIMARY KEY,
-        name TEXT
-        password TEXT
-      );
-    ''');
-    await db.execute('''
       CREATE TABLE $_databaseCategoryName (
         id INTEGER PRIMARY KEY,
         title TEXT
-        userId INTEGER
       );
     ''');
     await db.execute('''
@@ -56,33 +47,6 @@ class DatabaseHelper {
 
   final String _databaseCategoryName = 'Category';
   final String _databasePasswordName = 'Password';
-  final String _databaseAccountName = 'Account';
-
-  Future<void> insertAccount(AccountModel accountModel) async {
-    final db = await database;
-    await db!.insert(
-      _databaseAccountName,
-      accountModel.toMap(),
-    );
-  }
-
-  Future<String> getAccount(String name) async {
-    final db = await database;
-    List<Map<String, dynamic>> results = await db!.query(
-      _databaseAccountName,
-      where: "name = ?",
-      whereArgs: [name],
-    );
-
-    if (results.isNotEmpty) {
-      return results
-          .map((res) => AccountModel.fromMap(res))
-          .toList()[0]
-          .password;
-    } else {
-      return '';
-    }
-  }
 
   Future<void> insertCategory(CategoryModel categoryModel) async {
     final db = await database;

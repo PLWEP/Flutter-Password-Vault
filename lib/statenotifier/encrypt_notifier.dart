@@ -12,7 +12,6 @@ class EncryptNotifier extends StateNotifier<String> {
 
   EncryptedModel encryptMessage(String message) {
     final encryptedMessage = encrypter.encrypt(message, iv: iv);
-    print(encryptedMessage.base16);
     return EncryptedModel(
         byte: encryptedMessage.bytes, data: encryptedMessage.base16);
   }

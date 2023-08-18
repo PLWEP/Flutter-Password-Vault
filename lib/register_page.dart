@@ -12,12 +12,6 @@ class RegisterPage extends ConsumerWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  void onSubmit(WidgetRef ref) {
-    final name = ref.read(registerNameProvider);
-    final password = ref.read(registerPasswordProvider);
-    ref.read(storageProvider.notifier).saveStorage(name, password);
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final password = ref.watch(registerPasswordProvider);
@@ -78,7 +72,11 @@ class RegisterPage extends ConsumerWidget {
                       title: "Register",
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          onSubmit(ref);
+                          final name = ref.read(registerNameProvider);
+                          final password = ref.read(registerPasswordProvider);
+                          ref
+                              .read(storageHelperProvider.notifier)
+                              .saveStorage(name, password);
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute<void>(

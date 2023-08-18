@@ -15,9 +15,11 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loginName = ref.watch(loginNameProvider);
     final loginPassword = ref.watch(loginPasswordProvider);
     final loginStatus = ref.watch(loginStatusProvider);
-    final result = ref.watch(getAccountLoginProvider);
+    final storage = ref.watch(storageHelperProvider.notifier).getStorageData();
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -98,12 +100,11 @@ class LoginPage extends ConsumerWidget {
                       title: "Login",
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          ref.watch(getAccountLoginProvider);
-
-                          result.when(
-                            data: (data) {
-                              if (data != '') {
-                                if (data == loginPassword) {
+                          storage.then(
+                            (data) {
+                              if (data.name != '') {
+                                if (data.password == loginPassword &&
+                                    data.name == loginName) {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute<void>(
@@ -124,24 +125,6 @@ class LoginPage extends ConsumerWidget {
                                     .update((state) => true);
                               }
                             },
-                            error: (error, stackTrace) {
-                              _formKey.currentState!.reset();
-                              ref
-                                  .read(loginStatusProvider.notifier)
-                                  .update((state) => true);
-                            },
-                            loading: () => showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  const AlertDialog(
-                                content: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: Center(
-                                      child: CircularProgressIndicator()),
-                                ),
-                              ),
-                            ),
                           );
                         }
                       },

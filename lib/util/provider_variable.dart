@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:pasword_vault/statenotifier/category_notifier.dart';
 import 'package:pasword_vault/statenotifier/encrypt_notifier.dart';
 import 'package:pasword_vault/statenotifier/password_notifier.dart';
@@ -16,11 +17,6 @@ final registerConfirmPasswordProvider =
 final loginStatusProvider = StateProvider.autoDispose<bool>((ref) => false);
 final loginPasswordProvider = StateProvider.autoDispose<String>((ref) => '');
 final loginNameProvider = StateProvider.autoDispose<String>((ref) => '');
-final getAccountLoginProvider = FutureProvider((ref) {
-  final databaseHelper = ref.read(databaseHelperProvider);
-  final name = ref.read(loginNameProvider);
-  return databaseHelper.getAccount(name);
-});
 
 // new password
 final titleProvider = StateProvider<String>((ref) => '');
@@ -28,25 +24,13 @@ final usernameProvider = StateProvider<String>((ref) => '');
 final passwordProvider = StateProvider<String>((ref) => '');
 final confirmPasswordProvider = StateProvider<String>((ref) => '');
 
-// home
-
 // category
 final categoryPageProvider = StateProvider.autoDispose<String>((ref) => '');
-
 final categoryDumbProvider = StateProvider<String>((ref) => '');
 
 // detail password
 final passwordVisibilityProvider =
     StateProvider.autoDispose<bool>((ref) => false);
-
-// storage
-final storageHelperProvider =
-    StateProvider((ref) => const FlutterSecureStorage());
-final storageProvider =
-    StateNotifierProvider<StorageNotifier, StorageState>((ref) {
-  final storageHelper = ref.watch(storageHelperProvider);
-  return StorageNotifier(storageHelper: storageHelper);
-});
 
 // Database
 final databaseHelperProvider = StateProvider<DatabaseHelper>((ref) {
@@ -58,6 +42,7 @@ final databaseCategoryProvider =
   final databaseHelper = ref.watch(databaseHelperProvider);
   return CategoryNotifier(databaseHelper: databaseHelper);
 });
+
 final databasePasswordProvider =
     StateNotifierProvider.autoDispose<PasswordNotifier, PasswordState>((ref) {
   final databaseHelper = ref.watch(databaseHelperProvider);
@@ -71,4 +56,9 @@ final databasePasswordProvider =
 // encrypt
 final encryptProvider = StateNotifierProvider.autoDispose((ref) {
   return EncryptNotifier();
+});
+
+// storage
+final storageHelperProvider = StateNotifierProvider((ref) {
+  return StorageNotifier(storageHelper: const FlutterSecureStorage());
 });
