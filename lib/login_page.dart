@@ -105,6 +105,10 @@ class LoginPage extends ConsumerWidget {
                               if (data.name != '') {
                                 if (data.password == loginPassword &&
                                     data.name == loginName) {
+                                  _formKey.currentState!.reset();
+                                  ref
+                                      .read(loginStatusProvider.notifier)
+                                      .update((state) => false);
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute<void>(

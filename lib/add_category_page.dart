@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pasword_vault/model/category_model.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
 
@@ -7,8 +8,10 @@ class AddCategoryPage extends ConsumerWidget {
   AddCategoryPage({super.key});
 
   void onSubmit(WidgetRef ref) {
-    // final submit = ref.read(categoryDumbProvider);
-    // ref.read(databaseCategoryProvider.notifier).addCategory(submit);
+    final title = ref.read(categoryDumbProvider);
+    ref
+        .read(databaseCategoryProvider.notifier)
+        .addCategory(CategoryModel(title: title));
   }
 
   final _formKey = GlobalKey<FormState>();
