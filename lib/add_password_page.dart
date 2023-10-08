@@ -47,53 +47,49 @@ class AddPasswordPage extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomTextInput(
-                    title: "Title",
-                    hint: "Enter title",
-                    obsecureText: false,
-                    validator: (value) =>
-                        value!.isEmpty ? nullErrorMessage : null,
-                    onChanged: (value) => ref
-                        .read(titleProvider.notifier)
-                        .update((state) => value),
-                  ),
-                  CustomTextInput(
-                    title: "Username",
-                    hint: "Enter username",
-                    obsecureText: false,
-                    validator: (value) =>
-                        value!.isEmpty ? nullErrorMessage : null,
-                    onChanged: (value) => ref
-                        .read(usernameProvider.notifier)
-                        .update((state) => value),
-                  ),
-                  CustomTextInput(
-                    title: "Password",
-                    hint: "Enter password",
-                    obsecureText: true,
-                    validator: (value) =>
-                        value!.isEmpty ? nullErrorMessage : null,
-                    onChanged: (value) => ref
-                        .read(passwordProvider.notifier)
-                        .update((state) => value),
-                  ),
-                  CustomTextInput(
-                    title: "ConfirmPassword",
-                    hint: "Enter confirm password",
-                    obsecureText: true,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return nullErrorMessage;
-                      } else if (password != confirmPassword) {
-                        return notSameErrorMessage;
-                      } else {
-                        return null;
-                      }
-                    },
-                    onChanged: (value) => ref
-                        .read(confirmPasswordProvider.notifier)
-                        .update((state) => value),
-                  ),
+                  // CustomTextInput(
+                  //   title: "Title",
+                  //   hint: "Enter title",
+                  //   validator: (value) =>
+                  //       value!.isEmpty ? nullErrorMessage : null,
+                  //   onChanged: (value) => ref
+                  //       .read(titleProvider.notifier)
+                  //       .update((state) => value),
+                  // ),
+                  // CustomTextInput(
+                  //   title: "Username",
+                  //   hint: "Enter username",
+                  //   validator: (value) =>
+                  //       value!.isEmpty ? nullErrorMessage : null,
+                  //   onChanged: (value) => ref
+                  //       .read(usernameProvider.notifier)
+                  //       .update((state) => value),
+                  // ),
+                  // PasswordTextInput(
+                  //   title: "Password",
+                  //   hint: "Enter password",
+                  //   validator: (value) =>
+                  //       value!.isEmpty ? nullErrorMessage : null,
+                  //   onChanged: (value) => ref
+                  //       .read(passwordProvider.notifier)
+                  //       .update((state) => value),
+                  // ),
+                  // PasswordTextInput(
+                  //   title: "ConfirmPassword",
+                  //   hint: "Enter confirm password",
+                  //   validator: (value) {
+                  //     if (value!.isEmpty) {
+                  //       return nullErrorMessage;
+                  //     } else if (password != confirmPassword) {
+                  //       return notSameErrorMessage;
+                  //     } else {
+                  //       return null;
+                  //     }
+                  //   },
+                  //   onChanged: (value) => ref
+                  //       .read(confirmPasswordProvider.notifier)
+                  //       .update((state) => value),
+                  // ),
                   CustomElevatedButton(
                     title: "Save",
                     onPressed: () {

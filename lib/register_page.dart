@@ -10,12 +10,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class RegisterPage extends ConsumerWidget {
   RegisterPage({super.key});
 
+  final TextEditingController _loginNameController = TextEditingController();
+  final TextEditingController _loginPasswordController =
+      TextEditingController();
+  final TextEditingController _loginConfirmPasswordController =
+      TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final password = ref.watch(registerPasswordProvider);
-    final confirmPassword = ref.watch(registerConfirmPasswordProvider);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -27,56 +31,43 @@ class RegisterPage extends ConsumerWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomTitleText(
-                      title: "Register",
-                      textStyle: titleStyle,
-                    ),
+                    const CustomTitleText(title: "Register"),
                     CustomTextInput(
+                      controller: _loginNameController,
                       title: "Name",
                       hint: "Enter name",
-                      obsecureText: false,
                       validator: (value) =>
                           value!.isEmpty ? nullErrorMessage : null,
-                      onChanged: (value) => ref
-                          .read(registerNameProvider.notifier)
-                          .update((state) => value),
                     ),
-                    CustomTextInput(
+                    PasswordTextInput(
+                      controller: _loginPasswordController,
                       title: "Password",
                       hint: "Enter password",
-                      obsecureText: true,
                       validator: (value) =>
                           value!.isEmpty ? nullErrorMessage : null,
-                      onChanged: (value) => ref
-                          .read(registerPasswordProvider.notifier)
-                          .update((state) => value),
                     ),
-                    CustomTextInput(
+                    PasswordTextInput(
+                      controller: _loginConfirmPasswordController,
                       title: "Confirm Password",
                       hint: "Enter confirm password",
-                      obsecureText: true,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return nullErrorMessage;
-                        } else if (password != confirmPassword) {
+                        } else if (_loginPasswordController.text !=
+                            _loginConfirmPasswordController.text) {
                           return notSameErrorMessage;
                         } else {
                           return null;
                         }
                       },
-                      onChanged: (value) => ref
-                          .read(registerConfirmPasswordProvider.notifier)
-                          .update((state) => value),
                     ),
                     CustomElevatedButton(
                       title: "Register",
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          final name = ref.read(registerNameProvider);
-                          final password = ref.read(registerPasswordProvider);
-                          ref
-                              .read(storageHelperProvider.notifier)
-                              .saveStorage(name, password);
+                          ref.read(storageHelperProvider.notifier).saveStorage(
+                              _loginNameController.text,
+                              _loginPasswordController.text);
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute<void>(

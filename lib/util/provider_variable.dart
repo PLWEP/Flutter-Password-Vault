@@ -7,16 +7,8 @@ import 'package:pasword_vault/statenotifier/password_notifier.dart';
 import 'package:pasword_vault/statenotifier/storage_notifier.dart';
 import 'package:pasword_vault/util/database_helper.dart';
 
-// register
-final registerNameProvider = StateProvider<String>((ref) => '');
-final registerPasswordProvider = StateProvider<String>((ref) => '');
-final registerConfirmPasswordProvider =
-    StateProvider.autoDispose<String>((ref) => '');
-
 // login
 final loginStatusProvider = StateProvider.autoDispose<bool>((ref) => false);
-final loginPasswordProvider = StateProvider.autoDispose<String>((ref) => '');
-final loginNameProvider = StateProvider.autoDispose<String>((ref) => '');
 
 // new password
 final titleProvider = StateProvider<String>((ref) => '');
