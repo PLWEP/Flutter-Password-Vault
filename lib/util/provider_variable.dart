@@ -10,15 +10,8 @@ import 'package:pasword_vault/util/database_helper.dart';
 // login
 final loginStatusProvider = StateProvider.autoDispose<bool>((ref) => false);
 
-// new password
-final titleProvider = StateProvider<String>((ref) => '');
-final usernameProvider = StateProvider<String>((ref) => '');
-final passwordProvider = StateProvider<String>((ref) => '');
-final confirmPasswordProvider = StateProvider<String>((ref) => '');
-
 // category
 final categoryPageProvider = StateProvider.autoDispose<String>((ref) => '');
-final categoryDumbProvider = StateProvider<String>((ref) => '');
 
 // detail password
 final passwordVisibilityProvider =

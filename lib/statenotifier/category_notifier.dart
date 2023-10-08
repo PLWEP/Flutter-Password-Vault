@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/model/category_model.dart';
 import 'package:pasword_vault/util/database_helper.dart';
-import 'package:pasword_vault/util/result_state.dart';
+import 'package:pasword_vault/util/global_variable.dart';
 
 class CategoryNotifier extends StateNotifier<CategoryState> {
   final DatabaseHelper databaseHelper;

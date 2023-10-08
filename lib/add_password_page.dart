@@ -10,10 +10,8 @@ import 'package:pasword_vault/widget/custom_text_input.dart';
 class AddPasswordPage extends ConsumerWidget {
   final String category;
   AddPasswordPage({super.key, required this.category});
-  void onSubmit(WidgetRef ref) {
-    final title = ref.read(titleProvider);
-    final username = ref.read(usernameProvider);
-    final password = ref.read(passwordProvider);
+
+  void onSubmit(WidgetRef ref, String title, String username, String password) {
     final encryptedPassword =
         ref.read(encryptProvider.notifier).encryptMessage(password);
     final date = DateFormat('EEEE MMMM y').format(DateTime.now());
@@ -29,11 +27,15 @@ class AddPasswordPage extends ConsumerWidget {
         );
   }
 
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final password = ref.watch(passwordProvider);
-    final confirmPassword = ref.watch(confirmPasswordProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text("New Password"),
@@ -47,54 +49,52 @@ class AddPasswordPage extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // CustomTextInput(
-                  //   title: "Title",
-                  //   hint: "Enter title",
-                  //   validator: (value) =>
-                  //       value!.isEmpty ? nullErrorMessage : null,
-                  //   onChanged: (value) => ref
-                  //       .read(titleProvider.notifier)
-                  //       .update((state) => value),
-                  // ),
-                  // CustomTextInput(
-                  //   title: "Username",
-                  //   hint: "Enter username",
-                  //   validator: (value) =>
-                  //       value!.isEmpty ? nullErrorMessage : null,
-                  //   onChanged: (value) => ref
-                  //       .read(usernameProvider.notifier)
-                  //       .update((state) => value),
-                  // ),
-                  // PasswordTextInput(
-                  //   title: "Password",
-                  //   hint: "Enter password",
-                  //   validator: (value) =>
-                  //       value!.isEmpty ? nullErrorMessage : null,
-                  //   onChanged: (value) => ref
-                  //       .read(passwordProvider.notifier)
-                  //       .update((state) => value),
-                  // ),
-                  // PasswordTextInput(
-                  //   title: "ConfirmPassword",
-                  //   hint: "Enter confirm password",
-                  //   validator: (value) {
-                  //     if (value!.isEmpty) {
-                  //       return nullErrorMessage;
-                  //     } else if (password != confirmPassword) {
-                  //       return notSameErrorMessage;
-                  //     } else {
-                  //       return null;
-                  //     }
-                  //   },
-                  //   onChanged: (value) => ref
-                  //       .read(confirmPasswordProvider.notifier)
-                  //       .update((state) => value),
-                  // ),
+                  CustomTextInput(
+                    controller: _titleController,
+                    title: "Title",
+                    hint: "Enter title",
+                    validator: (value) =>
+                        value!.isEmpty ? nullErrorMessage : null,
+                  ),
+                  CustomTextInput(
+                    controller: _usernameController,
+                    title: "Username",
+                    hint: "Enter username",
+                    validator: (value) =>
+                        value!.isEmpty ? nullErrorMessage : null,
+                  ),
+                  PasswordTextInput(
+                    controller: _passwordController,
+                    title: "Password",
+                    hint: "Enter password",
+                    validator: (value) =>
+                        value!.isEmpty ? nullErrorMessage : null,
+                  ),
+                  PasswordTextInput(
+                    controller: _confirmPasswordController,
+                    title: "ConfirmPassword",
+                    hint: "Enter confirm password",
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return nullErrorMessage;
+                      } else if (_passwordController.text !=
+                          _confirmPasswordController.text) {
+                        return notSameErrorMessage;
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                   CustomElevatedButton(
                     title: "Save",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        onSubmit(ref);
+                        onSubmit(
+                          ref,
+                          _titleController.text,
+                          _usernameController.text,
+                          _passwordController.text,
+                        );
                         Navigator.pop(context);
                       }
                     },

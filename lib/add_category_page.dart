@@ -7,12 +7,13 @@ import 'package:pasword_vault/util/provider_variable.dart';
 class AddCategoryPage extends ConsumerWidget {
   AddCategoryPage({super.key});
 
-  void onSubmit(WidgetRef ref) {
-    final title = ref.read(categoryDumbProvider);
+  void onSubmit(WidgetRef ref, String title) {
     ref
         .read(databaseCategoryProvider.notifier)
         .addCategory(CategoryModel(title: title));
   }
+
+  final TextEditingController _categoryController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -27,14 +28,12 @@ class AddCategoryPage extends ConsumerWidget {
             content: Form(
               key: _formKey,
               child: TextFormField(
+                controller: _categoryController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter category',
                 ),
                 validator: (value) => value!.isEmpty ? nullErrorMessage : null,
-                onChanged: (value) => ref
-                    .read(categoryDumbProvider.notifier)
-                    .update((state) => value),
               ),
             ),
             actions: <Widget>[
@@ -46,7 +45,10 @@ class AddCategoryPage extends ConsumerWidget {
                 ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    onSubmit(ref);
+                    onSubmit(
+                      ref,
+                      _categoryController.text,
+                    );
                     Navigator.pop(context);
                   }
                 },

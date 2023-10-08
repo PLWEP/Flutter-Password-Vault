@@ -4,7 +4,6 @@ import 'package:pasword_vault/detail_password_page.dart';
 import 'package:pasword_vault/add_password_page.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
-import 'package:pasword_vault/util/result_state.dart';
 import 'package:pasword_vault/widget/custom_password_box.dart';
 import 'package:pasword_vault/widget/custom_title_text.dart';
 
