@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/model/password_model.dart';
-import 'package:pasword_vault/util/database_helper.dart';
+import 'package:pasword_vault/common/database_helper.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 
 class PasswordNotifier extends StateNotifier<PasswordState> {

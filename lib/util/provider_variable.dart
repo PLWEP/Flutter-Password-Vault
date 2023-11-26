@@ -1,10 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pasword_vault/feature/category/provider/category_provider.dart';
 
 import 'package:pasword_vault/statenotifier/category_notifier.dart';
 import 'package:pasword_vault/statenotifier/encrypt_notifier.dart';
 import 'package:pasword_vault/statenotifier/password_notifier.dart';
-import 'package:pasword_vault/util/database_helper.dart';
 
 // category
 final categoryPageProvider = StateProvider.autoDispose<String>((ref) => '');
@@ -14,9 +13,6 @@ final passwordVisibilityProvider =
     StateProvider.autoDispose<bool>((ref) => false);
 
 // Database
-final databaseHelperProvider = StateProvider<DatabaseHelper>((ref) {
-  return DatabaseHelper();
-});
 
 final databaseCategoryProvider =
     StateNotifierProvider.autoDispose<CategoryNotifier, CategoryState>((ref) {

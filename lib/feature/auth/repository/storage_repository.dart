@@ -10,7 +10,7 @@ class StorageRepository {
   StorageRepository({required FlutterSecureStorage storageHelper})
       : _storageHelper = storageHelper;
 
-  getStorageData() async {
+  FutureEither<UserModel?> getStorageData() async {
     try {
       final name = await _storageHelper.read(key: 'name');
       final password = await _storageHelper.read(key: 'password');

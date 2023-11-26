@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pasword_vault/model/category_model.dart';
+import 'package:pasword_vault/feature/category/provider/category_provider.dart';
 import 'package:pasword_vault/util/global_variable.dart';
-import 'package:pasword_vault/util/provider_variable.dart';
 
-class AddCategoryPage extends ConsumerWidget {
-  AddCategoryPage({super.key});
+class AddCategoryPage extends ConsumerStatefulWidget {
+  const AddCategoryPage({super.key});
 
-  void onSubmit(WidgetRef ref, String title) {
-    ref
-        .read(databaseCategoryProvider.notifier)
-        .addCategory(CategoryModel(title: title));
-  }
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _AddCategoryPageState();
+}
 
-  final TextEditingController _categoryController = TextEditingController();
+class _AddCategoryPageState extends ConsumerState<AddCategoryPage> {
+  final TextEditingController _titleController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  void onSubmit() {
+    ref
+        .read(categoryControllerProvider.notifier)
+        .addCategory(context, _titleController.text.trim());
+  }
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void dispose() {
+    super.dispose();
+    _titleController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return FloatingActionButton(
       child: const Icon(Icons.add),
       onPressed: () {
@@ -28,10 +40,10 @@ class AddCategoryPage extends ConsumerWidget {
             content: Form(
               key: _formKey,
               child: TextFormField(
-                controller: _categoryController,
+                controller: _titleController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter category',
+                  hintText: 'Category Name',
                 ),
                 validator: (value) => value!.isEmpty ? nullErrorMessage : null,
               ),
@@ -45,11 +57,8 @@ class AddCategoryPage extends ConsumerWidget {
                 ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    onSubmit(
-                      ref,
-                      _categoryController.text,
-                    );
-                    Navigator.pop(context);
+                    onSubmit();
+                    _formKey.currentState!.reset();
                   }
                 },
                 child: const Text("Add"),
