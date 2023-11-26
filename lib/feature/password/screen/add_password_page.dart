@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:pasword_vault/feature/password/provider/password_provider.dart';
 import 'package:pasword_vault/model/password_model.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/util/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 
-class AddPasswordPage extends ConsumerWidget {
-  final String category;
-  AddPasswordPage({super.key, required this.category});
+class AddPasswordPage extends ConsumerStatefulWidget {
+  const AddPasswordPage({super.key});
 
-  void onSubmit(WidgetRef ref, String title, String username, String password) {
-    final encryptedPassword =
-        ref.read(encryptProvider.notifier).encryptMessage(password);
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _AddPasswordPageState();
+}
+
+class _AddPasswordPageState extends ConsumerState<AddPasswordPage> {
+  void onSubmit() {
+    final encryptedPassword = ref
+        .read(encryptProvider.notifier)
+        .encryptMessage(_passwordController.text.trim());
     final date = DateFormat('EEEE MMMM y').format(DateTime.now());
-    ref.read(databasePasswordProvider.notifier).addPassword(
+    ref.read(passwordControllerProvider.notifier).addPassword(
+          context,
           PasswordModel(
-            title: title,
-            username: username,
+            title: _titleController.text.trim(),
+            username: _usernameController.text.trim(),
             password: encryptedPassword.data,
             byte: encryptedPassword.byte,
             date: date,
-            category: category,
+            category: ref.read(selectedCategoryProvider)!,
           ),
         );
   }
@@ -33,9 +41,18 @@ class AddPasswordPage extends ConsumerWidget {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
+  @override
+  void dispose() {
+    super.dispose();
+    _titleController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+  }
+
   final _formKey = GlobalKey<FormState>();
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("New Password"),
@@ -89,13 +106,7 @@ class AddPasswordPage extends ConsumerWidget {
                     title: "Save",
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        onSubmit(
-                          ref,
-                          _titleController.text,
-                          _usernameController.text,
-                          _passwordController.text,
-                        );
-                        Navigator.pop(context);
+                        onSubmit();
                       }
                     },
                   ),

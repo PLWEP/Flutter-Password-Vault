@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/common/widget/loader.dart';
 import 'package:pasword_vault/feature/category/provider/category_provider.dart';
 import 'package:pasword_vault/feature/category/screen/add_category_page.dart';
-import 'package:pasword_vault/list_password_page.dart';
+import 'package:pasword_vault/feature/password/provider/password_provider.dart';
+import 'package:pasword_vault/feature/password/screen/list_password_page.dart';
+
 import 'package:pasword_vault/widget/custom_category_box.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -40,12 +42,20 @@ class _HomePageState extends ConsumerState<HomePage> {
                         itemBuilder: (context, index) {
                           var category = result[index];
                           return CustomCategoryBox(
-                            onpressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return ListPasswordPage(title: category.title);
-                              }),
-                            ),
+                            onpressed: () {
+                              ref
+                                  .read(selectedCategoryProvider.notifier)
+                                  .update((state) => category.title);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ListPasswordPage(
+                                        title: category.title);
+                                  },
+                                ),
+                              );
+                            },
                             title: category.title,
                             icon: Icons.folder,
                           );
