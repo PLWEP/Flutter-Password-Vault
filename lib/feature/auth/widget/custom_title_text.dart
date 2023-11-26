@@ -4,8 +4,11 @@ import 'package:pasword_vault/common/global_variable.dart';
 class CustomTitleText extends StatelessWidget {
   final String title;
   final TextStyle textStyle;
-  const CustomTitleText(
-      {super.key, required this.title, this.textStyle = titleStyle});
+  const CustomTitleText({
+    super.key,
+    required this.title,
+    this.textStyle = titleStyle,
+  });
 
   @override
   Widget build(BuildContext context) {

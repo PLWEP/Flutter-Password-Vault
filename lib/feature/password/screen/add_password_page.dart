@@ -5,8 +5,8 @@ import 'package:pasword_vault/feature/password/provider/password_provider.dart';
 import 'package:pasword_vault/model/password_model.dart';
 import 'package:pasword_vault/common/global_variable.dart';
 import 'package:pasword_vault/common/provider_variable.dart';
-import 'package:pasword_vault/widget/custom_elevated_button.dart';
-import 'package:pasword_vault/widget/custom_text_input.dart';
+import 'package:pasword_vault/common/widget/custom_elevated_button.dart';
+import 'package:pasword_vault/common/widget/custom_text_input.dart';
 
 class AddPasswordPage extends ConsumerStatefulWidget {
   const AddPasswordPage({super.key});
@@ -38,8 +38,6 @@ class _AddPasswordPageState extends ConsumerState<AddPasswordPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   @override
   void dispose() {
@@ -47,7 +45,6 @@ class _AddPasswordPageState extends ConsumerState<AddPasswordPage> {
     _titleController.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
-    _confirmPasswordController.dispose();
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -86,21 +83,6 @@ class _AddPasswordPageState extends ConsumerState<AddPasswordPage> {
                     hint: "Enter password",
                     validator: (value) =>
                         value!.isEmpty ? nullErrorMessage : null,
-                  ),
-                  PasswordTextInput(
-                    controller: _confirmPasswordController,
-                    title: "ConfirmPassword",
-                    hint: "Enter confirm password",
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return nullErrorMessage;
-                      } else if (_passwordController.text !=
-                          _confirmPasswordController.text) {
-                        return notSameErrorMessage;
-                      } else {
-                        return null;
-                      }
-                    },
                   ),
                   CustomElevatedButton(
                     title: "Save",

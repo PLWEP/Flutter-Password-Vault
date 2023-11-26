@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const String nullErrorMessage = 'Please input the field';
 const String notSameErrorMessage = 'The value is not the same as the password';
+const String emptyData = 'Empty data';
 
 const TextStyle titleStyle = TextStyle(
   fontSize: 35,

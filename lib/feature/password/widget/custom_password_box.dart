@@ -4,11 +4,12 @@ class CustomPasswordBox extends StatelessWidget {
   final String title;
   final String date;
   final Function() onpressed;
-  const CustomPasswordBox(
-      {super.key,
-      required this.title,
-      required this.date,
-      required this.onpressed});
+  const CustomPasswordBox({
+    super.key,
+    required this.title,
+    required this.date,
+    required this.onpressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +23,7 @@ class CustomPasswordBox extends StatelessWidget {
         ),
         width: double.infinity,
         height: 75,
-        decoration: const BoxDecoration(
-          color: Colors.black26,
-        ),
+        decoration: const BoxDecoration(color: Colors.black26),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

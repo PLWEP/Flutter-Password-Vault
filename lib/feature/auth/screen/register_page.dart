@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pasword_vault/feature/auth/provider/auth_provider.dart';
 import 'package:pasword_vault/common/global_variable.dart';
-import 'package:pasword_vault/widget/custom_elevated_button.dart';
-import 'package:pasword_vault/widget/custom_text_input.dart';
-import 'package:pasword_vault/widget/custom_title_text.dart';
+import 'package:pasword_vault/common/widget/custom_elevated_button.dart';
+import 'package:pasword_vault/common/widget/custom_text_input.dart';
+import 'package:pasword_vault/feature/auth/widget/custom_title_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {

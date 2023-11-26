@@ -7,7 +7,14 @@ class ErrorText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(error),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.error),
+          const SizedBox(height: 15),
+          Text(error),
+        ],
+      ),
     );
   }
 }

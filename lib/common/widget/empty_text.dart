@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pasword_vault/common/global_variable.dart';
 
-class Loader extends StatelessWidget {
-  const Loader({super.key});
+class EmptyText extends StatelessWidget {
+  const EmptyText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,9 +10,9 @@ class Loader extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(),
+          Icon(Icons.not_interested),
           SizedBox(height: 15),
-          Text('Loading'),
+          Text(emptyData),
         ],
       ),
     );

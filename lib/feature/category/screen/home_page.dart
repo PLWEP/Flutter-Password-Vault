@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pasword_vault/common/widget/empty_text.dart';
 import 'package:pasword_vault/common/widget/loader.dart';
 import 'package:pasword_vault/feature/category/provider/category_provider.dart';
 import 'package:pasword_vault/feature/category/screen/add_category_page.dart';
 import 'package:pasword_vault/feature/password/provider/password_provider.dart';
 import 'package:pasword_vault/feature/password/screen/list_password_page.dart';
 
-import 'package:pasword_vault/widget/custom_category_box.dart';
+import 'package:pasword_vault/feature/category/widget/custom_category_box.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -62,7 +63,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         },
                       );
                     } else {
-                      return const Center(child: Text("Kosong Bro"));
+                      return const EmptyText();
                     }
                   },
                 ),

@@ -20,15 +20,11 @@ class CustomCategoryBox extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 15),
         width: double.infinity,
         height: 75,
-        decoration: const BoxDecoration(
-          color: Colors.black26,
-        ),
+        decoration: const BoxDecoration(color: Colors.black26),
         child: Row(
           children: [
             Icon(icon, size: 40),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             Text(
               title,
               style: const TextStyle(

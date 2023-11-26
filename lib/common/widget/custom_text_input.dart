@@ -49,12 +49,13 @@ class CustomTextInput extends StatelessWidget {
 }
 
 class PasswordTextInput extends CustomTextInput {
-  const PasswordTextInput(
-      {super.key,
-      required super.title,
-      required super.hint,
-      required super.validator,
-      required super.controller,
-      super.onChanged,
-      super.obsecureText = true});
+  const PasswordTextInput({
+    super.key,
+    required super.title,
+    required super.hint,
+    required super.validator,
+    required super.controller,
+    super.onChanged,
+    super.obsecureText = true,
+  });
 }

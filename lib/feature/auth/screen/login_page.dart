@@ -4,9 +4,9 @@ import 'package:pasword_vault/feature/auth/provider/auth_provider.dart';
 import 'package:pasword_vault/feature/category/screen/home_page.dart';
 import 'package:pasword_vault/model/user_model.dart';
 import 'package:pasword_vault/common/global_variable.dart';
-import 'package:pasword_vault/widget/custom_elevated_button.dart';
-import 'package:pasword_vault/widget/custom_text_input.dart';
-import 'package:pasword_vault/widget/custom_title_text.dart';
+import 'package:pasword_vault/common/widget/custom_elevated_button.dart';
+import 'package:pasword_vault/common/widget/custom_text_input.dart';
+import 'package:pasword_vault/feature/auth/widget/custom_title_text.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -27,6 +27,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.dispose();
     _loginNameController.dispose();
     _loginPasswordController.dispose();
+  }
+
+  void login(UserModel user) {
+    if (user.password == _loginPasswordController.text &&
+        user.name == _loginNameController.text) {
+      _formKey.currentState!.reset();
+      ref.read(loginStatusProvider.notifier).update((state) => false);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => const HomePage(),
+        ),
+        (route) => false,
+      );
+    } else {
+      _formKey.currentState!.reset();
+      ref.read(loginStatusProvider.notifier).update((state) => true);
+    }
   }
 
   @override
@@ -90,23 +108,5 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
       ),
     );
-  }
-
-  void login(UserModel user) {
-    if (user.password == _loginPasswordController.text &&
-        user.name == _loginNameController.text) {
-      _formKey.currentState!.reset();
-      ref.read(loginStatusProvider.notifier).update((state) => false);
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute<void>(
-          builder: (BuildContext context) => const HomePage(),
-        ),
-        (route) => false,
-      );
-    } else {
-      _formKey.currentState!.reset();
-      ref.read(loginStatusProvider.notifier).update((state) => true);
-    }
   }
 }
