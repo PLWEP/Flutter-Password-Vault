@@ -14,15 +14,15 @@ class StorageController extends StateNotifier<bool> {
     required StorageRepository storageRepository,
   })  : _storageRepository = storageRepository,
         _ref = ref,
-        super(false);
+        super(false) {
+    getStorageData();
+  }
 
-  void getStorageData(BuildContext context) async {
+  void getStorageData() async {
+    state = true;
     final res = await _storageRepository.getStorageData();
-
-    res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) => _ref.read(userProvider.notifier).update((state) => r),
-    );
+    _ref.read(userProvider.notifier).update((state) => res);
+    state = false;
   }
 
   void saveStorageData(
@@ -31,7 +31,7 @@ class StorageController extends StateNotifier<bool> {
     String password,
   ) async {
     final res = await _storageRepository.saveStorage(name, password);
-
+    getStorageData();
     res.fold(
       (l) => showSnackBar(context, l.message),
       (r) {

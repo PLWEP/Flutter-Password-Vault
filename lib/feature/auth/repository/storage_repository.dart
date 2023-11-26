@@ -10,19 +10,15 @@ class StorageRepository {
   StorageRepository({required FlutterSecureStorage storageHelper})
       : _storageHelper = storageHelper;
 
-  FutureEither<UserModel?> getStorageData() async {
-    try {
-      final name = await _storageHelper.read(key: 'name');
-      final password = await _storageHelper.read(key: 'password');
+  Future<UserModel?> getStorageData() async {
+    final name = await _storageHelper.read(key: 'name');
+    final password = await _storageHelper.read(key: 'password');
 
-      final res = name == null && password == null
-          ? null
-          : UserModel(name: name!, password: password!);
+    final res = name == null && password == null
+        ? null
+        : UserModel(name: name!, password: password!);
 
-      return right(res);
-    } catch (e) {
-      return left(Failure(e.toString()));
-    }
+    return res;
   }
 
   FutureVoid saveStorage(String name, String password) async {

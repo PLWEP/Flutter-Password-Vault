@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pasword_vault/common/widget/loader.dart';
 import 'package:pasword_vault/feature/auth/provider/auth_provider.dart';
 import 'package:pasword_vault/feature/category/screen/home_page.dart';
 import 'package:pasword_vault/model/user_model.dart';
@@ -49,63 +50,66 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(storageControllerProvider);
     final loginStatus = ref.watch(loginStatusProvider);
-    final user = ref.watch(userProvider)!;
+    final user = ref.watch(userProvider);
 
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(20, 100, 20, 0),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CustomTitleText(title: "Password Vault"),
-                  if (loginStatus)
-                    Container(
-                      height: 40,
-                      margin: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.red.shade200,
-                        border: Border.all(
-                          color: Colors.red,
-                          width: loginStatus ? 3 : 0,
+        child: isLoading
+            ? const Loader()
+            : Container(
+                margin: const EdgeInsets.fromLTRB(20, 100, 20, 0),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const CustomTitleText(title: "Password Vault"),
+                        if (loginStatus)
+                          Container(
+                            height: 40,
+                            margin: const EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.red.shade200,
+                              border: Border.all(
+                                color: Colors.red,
+                                width: loginStatus ? 3 : 0,
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                  "Something Wrong. Incorrect password / name."),
+                            ),
+                          ),
+                        CustomTextInput(
+                          controller: _loginNameController,
+                          title: "Name",
+                          hint: "Enter Name",
+                          validator: (value) =>
+                              value!.isEmpty ? nullErrorMessage : null,
                         ),
-                      ),
-                      child: const Center(
-                        child:
-                            Text("Something Wrong. Incorrect password / name."),
-                      ),
+                        PasswordTextInput(
+                          controller: _loginPasswordController,
+                          title: "Password",
+                          hint: "Enter Password",
+                          validator: (value) =>
+                              value!.isEmpty ? nullErrorMessage : null,
+                        ),
+                        CustomElevatedButton(
+                          title: "Login",
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              login(user!);
+                            }
+                          },
+                        ),
+                      ],
                     ),
-                  CustomTextInput(
-                    controller: _loginNameController,
-                    title: "Name",
-                    hint: "Enter Name",
-                    validator: (value) =>
-                        value!.isEmpty ? nullErrorMessage : null,
                   ),
-                  PasswordTextInput(
-                    controller: _loginPasswordController,
-                    title: "Password",
-                    hint: "Enter Password",
-                    validator: (value) =>
-                        value!.isEmpty ? nullErrorMessage : null,
-                  ),
-                  CustomElevatedButton(
-                    title: "Login",
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        login(user);
-                      }
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }
