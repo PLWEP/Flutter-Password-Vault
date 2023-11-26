@@ -21,7 +21,7 @@ class _AddPasswordPageState extends ConsumerState<AddPasswordPage> {
     final encryptedPassword = ref
         .read(encryptProvider)
         .encryptMessage(_passwordController.text.trim());
-    final date = DateFormat('EEEE MMMM y').format(DateTime.now());
+    final date = DateFormat.yMEd().format(DateTime.now());
     ref.read(passwordControllerProvider.notifier).addPassword(
           context,
           PasswordModel(

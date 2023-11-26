@@ -24,7 +24,8 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Category"),
+        title: const Text("Category List"),
+        centerTitle: true,
       ),
       floatingActionButton: const AddCategoryPage(),
       body: SafeArea(

@@ -47,19 +47,19 @@ class _CustomDetailPasswordBoxState
             child: Row(
               children: [
                 Expanded(
-                    child: Text(
-                  passwordVisibility ? decryptedData : widget.password,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
+                  child: Text(
+                    passwordVisibility ? decryptedData : widget.password,
+                    style: const TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                )),
+                ),
                 CustomIconButton(
-                  onPressed: () async {
-                    await Clipboard.setData(
-                      ClipboardData(text: decryptedData),
-                    );
-                  },
+                  onPressed: () async => await Clipboard.setData(
+                    ClipboardData(text: decryptedData),
+                  ),
                   icon: const Icon(Icons.copy),
                 ),
                 const SizedBox(width: 5),
@@ -69,9 +69,11 @@ class _CustomDetailPasswordBoxState
                       passwordVisibility = !passwordVisibility;
                     });
                   },
-                  icon: Icon(passwordVisibility
-                      ? Icons.remove_red_eye
-                      : Icons.not_interested),
+                  icon: Icon(
+                    passwordVisibility
+                        ? Icons.remove_red_eye
+                        : Icons.not_interested,
+                  ),
                 ),
               ],
             ),
