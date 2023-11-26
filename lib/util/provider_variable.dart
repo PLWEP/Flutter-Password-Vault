@@ -4,10 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pasword_vault/statenotifier/category_notifier.dart';
 import 'package:pasword_vault/statenotifier/encrypt_notifier.dart';
 import 'package:pasword_vault/statenotifier/password_notifier.dart';
-import 'package:pasword_vault/statenotifier/storage_notifier.dart';
 import 'package:pasword_vault/util/database_helper.dart';
-
-// login
 
 // category
 final categoryPageProvider = StateProvider.autoDispose<String>((ref) => '');
@@ -40,9 +37,4 @@ final databasePasswordProvider =
 // encrypt
 final encryptProvider = StateNotifierProvider.autoDispose((ref) {
   return EncryptNotifier();
-});
-
-// storage
-final storageHelperProvider = StateNotifierProvider((ref) {
-  return StorageNotifier(storageHelper: const FlutterSecureStorage());
 });

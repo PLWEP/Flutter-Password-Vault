@@ -2,7 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:pasword_vault/common/failure.dart';
 import 'package:pasword_vault/common/typedef.dart';
-import 'package:pasword_vault/model/storage_model.dart';
+import 'package:pasword_vault/model/user_model.dart';
 
 class StorageRepository {
   final FlutterSecureStorage _storageHelper;

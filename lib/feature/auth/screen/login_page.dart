@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/feature/auth/provider/auth_provider.dart';
 import 'package:pasword_vault/home_page.dart';
-import 'package:pasword_vault/model/storage_model.dart';
+import 'package:pasword_vault/model/user_model.dart';
 import 'package:pasword_vault/util/global_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';

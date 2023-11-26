@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pasword_vault/feature/auth/controller/storage_controller.dart';
 import 'package:pasword_vault/feature/auth/repository/storage_repository.dart';
-import 'package:pasword_vault/model/storage_model.dart';
+import 'package:pasword_vault/model/user_model.dart';
 
 final userProvider = StateProvider<UserModel?>((ref) => null);
 
