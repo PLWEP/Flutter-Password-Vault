@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pasword_vault/util/global_variable.dart';
+import 'package:pasword_vault/common/global_variable.dart';
 
 class CustomTitleText extends StatelessWidget {
   final String title;

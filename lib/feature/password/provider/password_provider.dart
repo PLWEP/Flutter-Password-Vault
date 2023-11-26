@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pasword_vault/feature/category/provider/category_provider.dart';
 import 'package:pasword_vault/feature/password/controller/password_controller.dart';
 import 'package:pasword_vault/feature/password/repository/password_repository.dart';
 
 import 'package:pasword_vault/model/password_model.dart';
+import 'package:pasword_vault/common/provider_variable.dart';
 
 final passwordProvider = StateProvider<List<PasswordModel>>((ref) => []);
 final selectedCategoryProvider = StateProvider<String?>((ref) => null);

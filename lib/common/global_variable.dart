@@ -12,5 +12,3 @@ const TextStyle heading1Style = TextStyle(
   fontSize: 30,
   fontWeight: FontWeight.w400,
 );
-
-enum ResultState { loading, noData, hasData, error }

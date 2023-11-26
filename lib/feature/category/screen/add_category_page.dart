@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasword_vault/feature/category/provider/category_provider.dart';
-import 'package:pasword_vault/util/global_variable.dart';
+import 'package:pasword_vault/common/global_variable.dart';
 
 class AddCategoryPage extends ConsumerStatefulWidget {
   const AddCategoryPage({super.key});

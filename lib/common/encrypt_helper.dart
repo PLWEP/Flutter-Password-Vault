@@ -1,11 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:pasword_vault/model/encrypted_model.dart';
 
-class EncryptNotifier extends StateNotifier<String> {
-  EncryptNotifier() : super('');
+class EncryptHelper {
+  EncryptHelper();
   static final key = encrypt.Key.fromLength(32);
   static final iv = encrypt.IV.fromLength(8);
   final encrypter = encrypt.Encrypter(encrypt.Salsa20(key));

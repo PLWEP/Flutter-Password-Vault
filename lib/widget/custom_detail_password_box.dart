@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pasword_vault/util/provider_variable.dart';
+import 'package:pasword_vault/common/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_icon_button.dart';
 
 class CustomDetailPasswordBox extends ConsumerWidget {
@@ -15,8 +15,7 @@ class CustomDetailPasswordBox extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final decryptedData =
-        ref.watch(encryptProvider.notifier).decryptMessage(data);
+    final decryptedData = ref.watch(encryptProvider).decryptMessage(data);
     final passwordVisibility = ref.watch(passwordVisibilityProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 10),

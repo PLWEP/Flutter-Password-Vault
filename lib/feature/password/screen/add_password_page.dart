@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pasword_vault/feature/password/provider/password_provider.dart';
 import 'package:pasword_vault/model/password_model.dart';
-import 'package:pasword_vault/util/global_variable.dart';
-import 'package:pasword_vault/util/provider_variable.dart';
+import 'package:pasword_vault/common/global_variable.dart';
+import 'package:pasword_vault/common/provider_variable.dart';
 import 'package:pasword_vault/widget/custom_elevated_button.dart';
 import 'package:pasword_vault/widget/custom_text_input.dart';
 
@@ -19,7 +19,7 @@ class AddPasswordPage extends ConsumerStatefulWidget {
 class _AddPasswordPageState extends ConsumerState<AddPasswordPage> {
   void onSubmit() {
     final encryptedPassword = ref
-        .read(encryptProvider.notifier)
+        .read(encryptProvider)
         .encryptMessage(_passwordController.text.trim());
     final date = DateFormat('EEEE MMMM y').format(DateTime.now());
     ref.read(passwordControllerProvider.notifier).addPassword(

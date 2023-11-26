@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:pasword_vault/util/global_variable.dart';
+import 'package:pasword_vault/common/global_variable.dart';
 import 'package:pasword_vault/widget/custom_detail_password_box.dart';
 import 'package:pasword_vault/widget/custom_detail_username_box.dart';
 import 'package:pasword_vault/widget/custom_title_text.dart';
