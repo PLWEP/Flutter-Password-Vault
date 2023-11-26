@@ -8,7 +8,6 @@ import 'package:pasword_vault/statenotifier/storage_notifier.dart';
 import 'package:pasword_vault/util/database_helper.dart';
 
 // login
-final loginStatusProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 // category
 final categoryPageProvider = StateProvider.autoDispose<String>((ref) => '');

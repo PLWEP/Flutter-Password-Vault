@@ -1,16 +1,16 @@
-class StorageModel {
+class UserModel {
   String name;
   String password;
-  StorageModel({
+  UserModel({
     required this.name,
     required this.password,
   });
 
-  StorageModel copyWith({
+  UserModel copyWith({
     String? name,
     String? password,
   }) {
-    return StorageModel(
+    return UserModel(
       name: name ?? this.name,
       password: password ?? this.password,
     );

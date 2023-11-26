@@ -1,24 +1,25 @@
 name: pasword_vault
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.0.1 <4.0.0'
+    sdk: ">=3.0.1 <4.0.0"
 
 dependencies:
-  encrypt: ^5.0.1
-  flutter:
-    sdk: flutter
-  flutter_riverpod: ^2.3.6
-  flutter_secure_storage: ^8.0.0
-  intl: ^0.18.1
-  sqflite: ^2.2.8+4
+    encrypt: ^5.0.1
+    flutter:
+        sdk: flutter
+    flutter_riverpod: ^2.3.6
+    flutter_secure_storage: ^8.0.0
+    intl: ^0.18.1
+    sqflite: ^2.2.8+4
+    fpdart: ^1.1.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
+    flutter_test:
+        sdk: flutter
+    flutter_lints: ^2.0.0
 
 flutter:
-  uses-material-design: true
+    uses-material-design: true

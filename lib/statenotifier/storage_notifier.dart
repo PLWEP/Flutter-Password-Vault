@@ -6,13 +6,13 @@ class StorageNotifier extends StateNotifier<String> {
   final FlutterSecureStorage storageHelper;
   StorageNotifier({required this.storageHelper}) : super('');
 
-  Future<StorageModel> getStorageData() async {
+  Future<UserModel> getStorageData() async {
     final name = await storageHelper.read(key: 'name');
     final password = await storageHelper.read(key: 'password');
     if (name != null && password != null) {
-      return StorageModel(name: name, password: password);
+      return UserModel(name: name, password: password);
     } else {
-      return StorageModel(name: "", password: "");
+      return UserModel(name: "", password: "");
     }
   }
 
